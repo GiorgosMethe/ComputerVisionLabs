@@ -103,14 +103,13 @@ T = comBase - comTarget * R;
 newTarget = (R * base(:,1:3)')' + repmat(T,lenB,1);
 
 %% RMS
+RMS = 0;
 sumRMS = 0;
 for i = 1:lenB
-   sumRMS = (sqrt((base(i,1)-newTarget(i,1))^2+(base(i,2)-newTarget(i,2))^2+(base(i,3)-newTarget(i,3))^2))^2;
-   %2-norm (euclidean) - den eimai sigouros an einai ayto pou prepei.(paris) 
+   sumRMS = (sqrt())^2 %2-norm (eucl) 
 end 
-RMS = sqrt((1/lenB)*sumRMS);
-%metheniti edo thelei kati min ? alla den kserw an iparxoun polla
-%diaforetika ?, des to ligo.
+
+
 
 
 
