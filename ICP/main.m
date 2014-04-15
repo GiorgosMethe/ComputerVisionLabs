@@ -15,9 +15,13 @@ base = base(filterIndexBase,:);
 filterIndexTarget = find(target(:,3) < 2);
 target = target(filterIndexTarget,:);
 
-%ta evala se function xous
-%[R, T, RMS] = icp(base, target);
-cp =importdata('cp.mat');
+%% Iterative procedure
+% RMSprevious = 10; %default value
+% RMS = 0; %default value
+% while RMS < RMSprevious
+[R, T, RMS] = icp(base, target);
+% end
+%cp =importdata('cp.mat');
 
 
 

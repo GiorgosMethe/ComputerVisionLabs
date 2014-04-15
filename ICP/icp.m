@@ -16,29 +16,29 @@ lenB = size(base,1);
 lenT = size(target,1);
 
 % closest points from source to target
-cp = ones(lenB,2);
-% find close points
-for i=1:lenB
-   minimum = +Inf;
-   cIndex = -1;
-   for j=1:lenT
-      xB = base(i,1);
-      xT = target(j,1);
-      yB = base(i,2);
-      yT = target(j,2);
-      zB = base(i,3);
-      zT = target(j,3);
-      dist = sqrt((xB-xT)^2+(yB-yT)^2+(zB-zT)^2);
-      
-      if dist<minimum
-         minimum=dist; 
-         cIndex = j;
-      end
-   end
-   cp(i,1) = cIndex;
-   cp(i,2) = minimum;
-end
-
+% cp = ones(lenB,2);
+% % find close points
+% for i=1:lenB
+%    minimum = +Inf;
+%    cIndex = -1;
+%    for j=1:lenT
+%       xB = base(i,1);
+%       xT = target(j,1);
+%       yB = base(i,2);
+%       yT = target(j,2);
+%       zB = base(i,3);
+%       zT = target(j,3);
+%       dist = sqrt((xB-xT)^2+(yB-yT)^2+(zB-zT)^2);
+%       
+%       if dist<minimum
+%          minimum=dist; 
+%          cIndex = j;
+%       end
+%    end
+%    cp(i,1) = cIndex;
+%    cp(i,2) = minimum;
+% end
+cp =importdata('cp.mat');
 %% Center of mass
 
 sum = zeros(1,3);
@@ -59,7 +59,10 @@ baseNor = base(:,1:3) - repmat(comBase,lenB,1);
 targetNor = target(:,1:3) - repmat(comBase,lenT,1);
 
 %% SVD
-
+A = zeros(3,3);
+  for i= 1:lenB
+    A = A + (baseNor(i,:)' * targetNor(cp(i,1),:));
+ end
 [U,S,V] = svd(A);
 
 %% Rotation matrix
