@@ -47,7 +47,7 @@ function[cp] = closestPoints(base, target)
 %     cp(i,1) = cIndex;
 %     cp(i,2) = minimum;
 
-%get coords from index.
+$
     cp(i,1) = target(cIndex,1);
     cp(i,2) = target(cIndex,2);
     cp(i,3) = target(cIndex,3);
