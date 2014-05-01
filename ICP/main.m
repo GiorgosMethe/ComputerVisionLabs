@@ -8,9 +8,8 @@ target = readPcd('data/0000000002.pcd');
 %clean Data
 base = cleanData(base);
 target = cleanData(target);
-%Plot data-optional
-% plot3(base(1,:),base(2,:),base(3,:),'bo');
-
+base = base(1:1000,:);
+target = target(1:1000,:);
 %% Iterative procedure
 [R, T] = icp(base, target);
 
