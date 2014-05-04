@@ -10,16 +10,21 @@ base = readPcd('data/0000000001.pcd');
 base = cleanData(base);
 
 tr = eye(4);
-for i = 2:4:99
+for i = 2:8:50
     i
     %% load target point cloud
     target = cleanData(readPcd(strcat('data/',num2str(i,'%.10d'),'.pcd')));
     %% Iterative procedures
     R = tr(1:3, 1:3);
     T = (tr(1:3,4))';
-    target = (R * target(:,1:3)')' + repmat(T,size(target,1),1);
-    [R, T] = icp(base, target);
+    target1 = (R * target(:,1:3)')' + repmat(T,size(target,1),1);
+    
+    [R, T] = icp(base, target1);
     tr = [R,T';0,0,0,1] * tr;
+    R = tr(1:3, 1:3);
+    T = (tr(1:3,4))';
+    target = (R * target(:,1:3)')' + repmat(T,size(target,1),1);
+    
     base = cat(1, base, target);
 end
 

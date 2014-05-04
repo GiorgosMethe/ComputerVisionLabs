@@ -3,19 +3,21 @@ function[R, T] = icp(base, target)
 %% Initialize rotation, translation
 R = eye(3, 3);
 T = zeros(1, 3);
+tr = eye(4);
 rms = 0;
 
 for i=1:100
+    tr = [R,T';0,0,0,1] * tr;
     %% New transformed target cloud
-    base = (R * base(:,1:3)')' + repmat(T,size(base,1),1);
+    target = (R * target(:,1:3)')' + repmat(T,size(target,1),1);
     
     %% Find Closest Points
     %[base, target] = closestPoints(base, target, 0);
-    [base, target] = closestPoints(base, target, 1, 1000);
-    %[base, target] = closestPoints(base, target, 2, 0);
+    %[base, target] = closestPoints(base, target, 1, 1000);
+    [base, target] = closestPoints(base, target, 2, 0);
     
     %% Get transformation for Rotation, Translation through SVD
-    [R, T] = getTransformation(target, base);
+    [R, T] = getTransformation(base, target);
     
     %% Find Rms between base and target
     oldRms = rms;
@@ -44,4 +46,7 @@ end
 % scatter3(p(1,:),p(2,:),p(3,:),'bo');
 % scatter3(p1(1,:),p1(2,:),p1(3,:),'r+');
 % hold off
+
+R = tr(1:3, 1:3);
+T = (tr(1:3,4))';
 end
