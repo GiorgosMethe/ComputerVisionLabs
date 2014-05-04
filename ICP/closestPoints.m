@@ -4,33 +4,62 @@ function[baseCP, targetCP] = closestPoints(base, target, type, arg1)
 
 %% brute force
 if type == 0
-    baseCP = base;
-    targetCP = ones(size(base,1),3);
+    baseCP = ones(size(target,1),3);
+    targetCP = target;
+    for i=1:size(targetCP,1)
+        minimum = +Inf;
+        cIndex = -1;
+        for j=1:size(base,1)
+            dist = 0;
+            for w=1:3
+                dist = dist + ((targetCP(i,w)-base(j,w))*(targetCP(i,w)-base(j,w)));
+            end
+            dist = sqrt(dist);
+            if dist<minimum
+                minimum=dist;
+                cIndex = j;
+            end
+        end
+        %get coords from index.
+        baseCP(i,1) = base(cIndex,1);
+        baseCP(i,2) = base(cIndex,2);
+        baseCP(i,3) = base(cIndex,3);
+    end
+    
     %% uniform sampler
 elseif type == 1
-    sel = randsample(size(base,1),arg1);
-    baseCP = base(sel,:);
-end
-
-%% search in target for closest points
-for i=1:size(baseCP,1)
-    minimum = +Inf;
-    cIndex = -1;
-    for j=1:size(target,1)
-        dist = 0;
-        for w=1:3
-            dist = dist + ((baseCP(i,w)-target(j,w))*(baseCP(i,w)-target(j,w)));
+    baseCP = ones(arg1,3);
+    sel = randsample(size(target,1),arg1);
+    targetCP = target(sel,:);
+    for i=1:size(targetCP,1)
+        minimum = +Inf;
+        cIndex = -1;
+        for j=1:size(base,1)
+            dist = 0;
+            for w=1:3
+                dist = dist + ((targetCP(i,w)-base(j,w))*(targetCP(i,w)-base(j,w)));
+            end
+            dist = sqrt(dist);
+            if dist<minimum
+                minimum=dist;
+                cIndex = j;
+            end
         end
-        dist = sqrt(dist);
-        if dist<minimum
-            minimum=dist;
-            cIndex = j;
-        end
+        %get coords from index.
+        baseCP(i,1) = base(cIndex,1);
+        baseCP(i,2) = base(cIndex,2);
+        baseCP(i,3) = base(cIndex,3);
     end
-    %get coords from index.
-    targetCP(i,1) = target(cIndex,1);
-    targetCP(i,2) = target(cIndex,2);
-    targetCP(i,3) = target(cIndex,3);
+    %% KD-tree search
+elseif type == 2
+    % perform the nearest-neighbor search
+    params.algorithm = 'kdtree';
+    params.trees = 8;
+    params.checks = 64;
+    % perform the nearest-neighbor search
+    [result, ~] = flann_search(base',target',1,params);
+    baseCP = base(result',:);
+    targetCP = target;
 end
 end
 
