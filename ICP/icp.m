@@ -8,7 +8,7 @@ R = tr(1:3, 1:3);
 T = (tr(1:3,4))';
 target = (R * target(:,1:3)')' + repmat(T,size(target,1),1);
 
-for it=1:100
+for iterations=1:100
     %% Find Closest Points
     % Brute force
     %[baseCP, targetCP] = closestPoints(base, target, 0);
@@ -27,9 +27,10 @@ for it=1:100
     %% Find Rms between base and target
     oldRms = rms;
     rms = getRms(baseCP, targetCP);
-    if (abs(oldRms - rms) < 10e-5)
+    change = abs(oldRms - rms);
+    if (change < 10e-5)
         break
     end
 end
-it
+iterations
 end

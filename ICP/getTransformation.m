@@ -25,7 +25,7 @@ A = baseNor' * targetNor;
 R = U * transpose(V);
 
 %% Translation matrix
-T = comBase * R - comTarget;
+T = comBase - (comTarget * R');
 
 end
 
