@@ -17,20 +17,37 @@ I2 = imread('frame00000002.png');
 
 best = find(scores < 3000);
 matches = matches(:,best);
+p1 = f1(1:2,matches(1,:));
+p2 = f2(1:2,matches(2,:));
 
+%% Figures
 figure
 imshow(uint8(I1));
 hold on;
-plot(f1(1,matches(1,:)),f1(2,matches(1,:)),'b*');
+plot(p1(1,:),p1(2,:),'r.');
 
 figure
 imshow(uint8(I2));
 hold on;
-plot(f2(1,matches(2,:)),f2(2,matches(2,:)),'g*');
+plot(p2(1,:),p2(2,:),'r.');
 
 %% A
-A = getA(f1, f2, matches);
+A = getA(p1, p2);
 %% SVD
 F = eightPoint(A);
 %% Normalization
 %F_norm = normalize(F);
+[p1, T1] = normalizePoints(p1);
+[p2, T2] = normalizePoints(p2);
+
+p1 = p1(1:2,:);
+p2 = p2(1:2,:);
+
+An = getA(p1, p2);
+Fn = eightPoint(An);
+Fn = reshape(Fn, 3, 3);
+
+F1 = T2' * Fn * T1;
+
+
+

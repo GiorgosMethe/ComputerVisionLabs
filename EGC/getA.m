@@ -1,13 +1,13 @@
-function [ A ] = getA( f1, f2, matches )
+function [ A ] = getA( p1, p2, matches )
 %GETA Summary of this function goes here
 %   Detailed explanation goes here
 %%
-x = f1(1,matches(1,:));
-xp = f2(1,matches(2,:));
-y = f1(2,matches(1,:));
-yp = f2(2,matches(2,:));
+x = p1(1,:);
+xp = p2(1,:);
+y = p1(2,:);
+yp = p2(2,:);
 %%
-A = ones(size(matches,2), 9);
+A = ones(size(p1,2), 9);
 A(:,1) = x .* xp;
 A(:,2) = x .* yp;
 A(:,3) = x;
