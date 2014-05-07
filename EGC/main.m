@@ -10,17 +10,13 @@ addpath('House')
 I1 = imread('frame00000001.png');
 I2 = imread('frame00000002.png');
 
-figure
-imshow(I1);
-
-figure
-imshow(I2);
-
-%%compute SIFT frames and descriptors
 [f1, d1] = vl_sift(single(I1));
 [f2, d2] = vl_sift(single(I2));
 
 [matches, scores] = vl_ubcmatch(d1, d2);
+
+best = find(scores < 3000);
+matches = matches(:,best);
 
 figure
 imshow(uint8(I1));
@@ -31,3 +27,10 @@ figure
 imshow(uint8(I2));
 hold on;
 plot(f2(1,matches(2,:)),f2(2,matches(2,:)),'g*');
+
+%% A
+A = getA(f1, f2, matches);
+%% SVD
+F = eightPoint(A);
+%% Normalization
+%F_norm = normalize(F);
