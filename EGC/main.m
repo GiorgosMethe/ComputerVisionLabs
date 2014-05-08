@@ -2,8 +2,8 @@ clear all
 close all
 clc
 
-warning('off','all');
-run('vlfeat-0.9.18/toolbox/vl_setup.m')
+%warning('off','all');
+%run('vlfeat-0.9.18/toolbox/vl_setup.m')
 addpath('TeddyBear')
 addpath('House')
 
