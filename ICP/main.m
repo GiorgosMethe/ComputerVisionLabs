@@ -4,6 +4,7 @@ clc
 
 %% added filepath for flann library functions
 addpath /usr/local/share/flann/matlab/
+addpath flann
 
 %% read arrays, clean Data
 base = cleanData(readPcd(strcat('data/',num2str(1,'%.10d'),'.pcd')));
