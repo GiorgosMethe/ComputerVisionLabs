@@ -10,44 +10,53 @@ end
 addpath('TeddyBear')
 addpath('House')
 
-I1 = imread('frame00000001.png');
-I2 = imread('frame00000002.png');
+RansacMaxIt = 100;
+RansacThreshold = 0.01;
 
-%% Sift
-[f1, d1] = vl_sift(single(I1));
-[f2, d2] = vl_sift(single(I2));
-%% Matches
-[matches, scores] = vl_ubcmatch(d1, d2);
-%% Best Matches
-best = find(scores < 3000);
-matches = matches(:,best);
-p1 = f1(1:2,matches(1,:));
-p2 = f2(1:2,matches(2,:));
-
-%% A
-A = getA(p1, p2);
-%% EightPoint
-F = eightPoint(A);
-F = normalizedEightPoint(p1, p2);
-
-%% Sampson distance
-for i=1:size(matches,2)
-    p = [p1(1,i); p1(2,i); 1];
-    pp = [p2(1,i); p2(2,i); 1];
+frames = [ 1:49, 1];
+iteration = 0;
+for frame = 2:size(frames,2);
+    %% Read images
+    iteration = iteration+1;
+    I1 = single(imread(strcat('frame',num2str(frames(frame-1),'%.8d'),'.png')));
+    I2 = single(imread(strcat('frame',num2str(frames(frame),'%.8d'),'.png')));
+    strcat('frame',num2str(frames(frame-1),'%.8d'),' <--> ', 'frame',num2str(frames(frame),'%.8d'))
     
-    n1 = (pp' * F * p)^2;
+    %% Sift
+    [f1, d1] = vl_sift(I1);
+    [f2, d2] = vl_sift(I2);
     
-    d1 = F * p;
-    d11 = d1(1)^2;
-    d12 = d1(2)^2;
+    %% Matches
+    [matches, scores] = vl_ubcmatch(d1, d2);
     
-    d2 = transpose(F) * pp;
-    d21 = d2(1)^2;
-    d22 = d2(2)^2;
-    
-    d(i) = n1 / (d11 + d12 + d21 + d22);
+    %% Ransac
+    MaxInliersNum = -1;
+    for it = 1:RansacMaxIt
+        
+        %% 8 random matches
+        randomSelection = randsample(size(matches, 2), 8);
+        matchesRan = matches(:,randomSelection);
+        p1all = f1(1:2,matches(1,:));
+        p2all = f2(1:2,matches(2,:));
+        p1 = f1(1:2,matchesRan(1,:));
+        p2 = f2(1:2,matchesRan(2,:));
+         
+        %% A
+        A = getA(p1, p2);
+        
+        %% EightPoint
+        F = eightPoint(A);
+        F = normalizedEightPoint(p1, p2);
+        
+        %% Sampson distance
+        D = sampsonDistance(p1all, p2all, F);
+        inliers = checkInliers(D, RansacThreshold);
+        if(inliers > MaxInliersNum)
+           MaxInliersNum = inliers;
+           F_best(:,:,iteration) = F;
+        end
+    end
 end
-
 
 
 
