@@ -10,10 +10,16 @@ end
 addpath('TeddyBear')
 addpath('House')
 
+nrFrames = 49;
+%Initialize Point-View Matrix
+tempPVM = [];
+PVM = [];
+
+
 RansacMaxIt = 100;
 RansacThreshold = 0.01;
 
-frames = [ 1:49, 1];
+frames = [ 1:nrFrames, 1];
 iteration = 0;
 for frame = 2:size(frames,2);
     %% Read images
@@ -50,12 +56,16 @@ for frame = 2:size(frames,2);
         
         %% Sampson distance
         D = sampsonDistance(p1all, p2all, F);
-        inliers = checkInliers(D, RansacThreshold);
-        if(inliers > MaxInliersNum)
-           MaxInliersNum = inliers;
+        inliers  = checkInliers(D, RansacThreshold);
+        n = size(inliers, 1);
+        if(n > MaxInliersNum)
+           MaxInliersSet = inliers; 
+           MaxInliersNum = n;
            F_best(:,:,iteration) = F;
         end
-    end
+    end    
+    
+    tempPVM = getPVM(p1all,p2all,MaxInliersSet,tempPVM,PVM);
 end
 
 
