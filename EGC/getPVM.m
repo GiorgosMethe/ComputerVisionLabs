@@ -1,4 +1,4 @@
-function [ tempPVM ] = getPVM( p1all,p2all,inliers,tempPVM,PVM )
+function [ tempPVM,PVM ] = getPVM( p1all,p2all,inliers,tempPVM,PVM,frame)
 %UNTITLED3 Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -18,6 +18,7 @@ for i=1:sizep1matched
     end
     if found==true
         tempPVM(:,j) = matchedPointsP2(:,i);
+        PVM(frame-1,j) = 1;
     else
         tempPVM(:,sizeTemp+1) = matchedPointsP2(:,i);
         sizeTemp = size(tempPVM,2);

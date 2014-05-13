@@ -65,7 +65,7 @@ for frame = 2:size(frames,2);
         end
     end    
     
-    tempPVM = getPVM(p1all,p2all,MaxInliersSet,tempPVM,PVM);
+    [tempPVM,PVM] = getPVM(p1all,p2all,MaxInliersSet,tempPVM,PVM,frame);
 end
 
 
