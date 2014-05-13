@@ -15,13 +15,14 @@ for frame = 2:5:98
     %% load target point cloud
     target = cleanData(readPcd(strcat('data/',num2str(frame,'%.10d'),'.pcd')));
     %% Iterative procedures
-    [R, T, tr, target] = icp(tr, base, target);
+    [R, T, tr, target,avgRMS] = icp(tr, base, target);
     %% New target
     base = target;
     %% For question 2.1 -- create a merged point cloud with all frames
     base1 = cat(1, base1, target);
     %% For question 2.2 -- merge the two point clouds
     %base = cat(1, base, target);
+    errors(frame) = avgRMS;
 end
 %% Show final result
 figure

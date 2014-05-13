@@ -1,4 +1,4 @@
-function[R, T, tr, target] = icp(tr, base, target)
+function[R, T, tr, target,avgRMS] = icp(tr, base, target)
 
 % Initialize rotation, translation
 rms = 0;
@@ -7,6 +7,7 @@ rms = 0;
 R = tr(1:3, 1:3);
 T = (tr(1:3,4))';
 target = (R * target(:,1:3)')' + repmat(T,size(target,1),1);
+sumRMS = 0;
 
 for iterations=1:100
     %% Find Closest Points
@@ -27,10 +28,12 @@ for iterations=1:100
     %% Find Rms between base and target
     oldRms = rms;
     rms = getRms(baseCP, targetCP);
+    sumRMS = sumRMS+rms;
     change = abs(oldRms - rms);
     if (change < 10e-5)
         break
     end
 end
+avgRMS = sumRMS/100;
 iterations
 end
