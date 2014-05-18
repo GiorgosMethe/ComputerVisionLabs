@@ -22,6 +22,7 @@ for i=1:sizep1matched
     else
         tempPVM(:,sizeTemp+1) = matchedPointsP2(:,i);
         sizeTemp = size(tempPVM,2);
+        PVM(frame-1,size(PVM,2)+1) =1;
     end
 end
 
