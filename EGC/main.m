@@ -17,8 +17,8 @@ tempPVM = [];
 PVM = [];
 
 
-RansacMaxIt = 1000;
-RansacThreshold = 500.0;
+RansacMaxIt = 100;
+RansacThreshold = 1.0;
 
 frames = [ 1:nrFrames, 1];
 iteration = 0;
@@ -37,10 +37,10 @@ for frame = 2:size(frames,2);
     [f2, d2] = vl_sift(I2);
     
     %% Eliminate background
-    foreground1 = getForeground(I1);
-    foreground2 = getForeground(I2);
-    [f1, d1] = getForegroundPoints(f1, d1, foreground1);
-    [f2, d2] = getForegroundPoints(f2, d2, foreground2);
+%     foreground1 = getForeground(I1);
+%     foreground2 = getForeground(I2);
+%     [f1, d1] = getForegroundPoints(f1, d1, foreground1);
+%     [f2, d2] = getForegroundPoints(f2, d2, foreground2);
     
     %% Matches
     [matches, scores] = vl_ubcmatch(d1, d2);
@@ -70,7 +70,8 @@ for frame = 2:size(frames,2);
         p1all = f1(1:2,matches(1,:));
         p2all = f2(1:2,matches(2,:));
         p1 = f1(1:2,matchesRan(1,:));
-        p2 = f2(1:2,matchesRan(2,:));p2all = f2(1:2,matches(2,:));
+        p2 = f2(1:2,matchesRan(2,:));
+        p2all = f2(1:2,matches(2,:));
         p1 = f1(1:2,matchesRan(1,:));
         p2 = f2(1:2,matchesRan(2,:));
         
@@ -97,7 +98,7 @@ for frame = 2:size(frames,2);
     [tempPVM,PVM] = getPVM(p1all,p2all,MaxInliersSet,tempPVM,PVM,frame);
 end
 
-
+    
 % load('PVM.mat');
 % load('tempPVM.mat');
 

@@ -1,6 +1,7 @@
 function [inliers] = checkInliers( D, threshold )
 %CHECKINLIERS Summary of this function goes here
 %   Detailed explanation goes here
+
 inliers = find(D < threshold);
 
 % for k=1:size(inliers,1)

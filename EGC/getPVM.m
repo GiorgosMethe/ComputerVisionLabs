@@ -8,8 +8,9 @@ matchedPointsP2 = p2all(:,inliers);
 
 sizep1matched = size(matchedPointsP1,2);
 sizeTempRows = size(tempPVM,1);
-found = false;
 for i=1:sizep1matched
+    found = false;
+
     sizeTemp = size(tempPVM,2);
     
     if sizeTemp >1 && sizeTempRows > 1
