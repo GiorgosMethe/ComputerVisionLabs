@@ -11,108 +11,50 @@ end
 addpath('TeddyBear')
 addpath('House')
 
-nrFrames = 16;
-%Initialize Point-View Matrix
-tempPVM = [];
-PVM = [];
 
+frameList = dir('TeddyBear');
+frameList = frameList(~[frameList.isdir]);
 
-RansacMaxIt = 100;
-RansacThreshold = 1.0;
-
-frames = [ 1:nrFrames, 1];
-iteration = 0;
-matrix = zeros(0,8);
-for frame = 2:size(frames,2);
-    %% Read images
-    iteration = iteration+1;
-    I1 = single(rgb2gray(imread(strcat('obj02_',num2str(frames(frame-1),'%.3d'),'.png'))));
-    I2 = single(rgb2gray(imread(strcat('obj02_',num2str(frames(frame),'%.3d'),'.png'))));
-    %     I1 = single(imread(strcat('frame',num2str(frames(frame-1),'%.8d'),'.png')));
-    %     I2 = single(imread(strcat('frame',num2str(frames(frame),'%.8d'),'.png')));
-    strcat(num2str(frames(frame-1),'%.8d'),'<-->',num2str(frames(frame),'%8d'))
-    
-    %% Sift
-    [f1, d1] = vl_sift(I1);
-    [f2, d2] = vl_sift(I2);
-    
-    %% Eliminate background
-%     foreground1 = getForeground(I1);
-%     foreground2 = getForeground(I2);
-%     [f1, d1] = getForegroundPoints(f1, d1, foreground1);
-%     [f2, d2] = getForegroundPoints(f2, d2, foreground2);
-    
-    %% Matches
-    [matches, scores] = vl_ubcmatch(d1, d2);
-    
-    figure
-    imshow(uint8(I1));
-    hold on;
-    plot(f1(1,matches(1,:)),f1(2,matches(1,:)),'b*');
-    
-    figure
-    imshow(uint8(I2));
-    hold on;
-    plot(f2(1,matches(2,:)),f2(2,matches(2,:)),'g*');
-    
-    %% Ransac
-    MaxInliersNum = -1;
-    p1best = zeros(2,8);
-    p2best = zeros(2,8);
-    for it = 1:RansacMaxIt
-        
-        %% 8 random matches
-        randomSelection = randsample(size(matches, 2), 8);
-        matchesRan = matches(:,randomSelection);
-        p1all = f1(1:2,matches(1,:));
-        randomSelection = randsample(size(matches, 2), 8);
-        matchesRan = matches(:,randomSelection);
-        p1all = f1(1:2,matches(1,:));
-        p2all = f2(1:2,matches(2,:));
-        p1 = f1(1:2,matchesRan(1,:));
-        p2 = f2(1:2,matchesRan(2,:));
-        p2all = f2(1:2,matches(2,:));
-        p1 = f1(1:2,matchesRan(1,:));
-        p2 = f2(1:2,matchesRan(2,:));
-        
-        %% A
-        A = getA(p1, p2);
-        
-        %% EightPoint
-        F = eightPoint(A);
-        F = normalizedEightPoint(p1, p2);
-        
-        %% Sampson distance
-        D = sampsonDistance(p1all, p2all, F);
-        inliers  = checkInliers(D, RansacThreshold);
-        n = size(inliers, 1);
-        if(n > MaxInliersNum)
-            MaxInliersSet = inliers;
-            MaxInliersNum = n;
-            F_best(:,:,iteration) = F;
-            p1best = p1;
-            p2best = p2;
-        end
+disp('loading')
+for i = 1:size(frameList,1);
+    img = imread(frameList(i).name);
+    if size(img,3) == 3
+        img = rgb2gray(img);
     end
-    MaxInliersNum
-    [tempPVM,PVM] = getPVM(p1all,p2all,MaxInliersSet,tempPVM,PVM,frame);
+    I(:,:,i) = single(img);
+    disp([num2str(i) ,'/', num2str(size(frameList,1))]);
 end
+disp('Done')
 
+frames = [ 1:size(frameList,1), 1];
+foreground = getForeground(I(:,:,1));
+
+for frame = 1:size(frames,2)-1;
+    disp([num2str(frames(frame)), '-->', num2str(frames(frame+1))])
+    tic
+    %% take the two images
+    currFrame = I(:,:,frames(frame));
+    nextFrame = I(:,:,frames(frame+1));
     
-% load('PVM.mat');
-% load('tempPVM.mat');
-
-pointScores = sum(PVM,1);
-bestPointsIndexes = find(pointScores>3);
-
-for frame = 2:size(frames,2);
-    %% Read images
-    iteration = iteration+1;
-    %     I2 = single(imread(strcat('frame',num2str(frames(frame),'%.8d'),'.png')));
-    I2 = single(rgb2gray(imread(strcat('obj02_',num2str(frames(frame),'%.3d'),'.png'))));
-    figure()
-    imshow(uint8(I2));
-    hold on;
-    plot(tempPVM((2*(frame-1))-1,bestPointsIndexes),tempPVM((2*(frame-1)),bestPointsIndexes),'b*');
+    %% Compute Sift
+    [fcurr, dcurr] = vl_sift(currFrame);
+    [fnext, dnext] = vl_sift(nextFrame);
+    
+    %% Filter matches
+    [fcurr, dcurr] = getForegroundPoints(fcurr, dcurr, foreground);
+    [fnext, dnext] = getForegroundPoints(fnext, dnext, foreground);
+    
+    %% Compute matches
+    [matches, scores] = vl_ubcmatch(dcurr, dnext);
+    
+    %% Matches coordinates for the two images -- without not matched points
+    currAll = fcurr(1:2,matches(1,:));
+    nextAll = fnext(1:2,matches(2,:));
+    
+    %% Ransac with eight point
+    maxInlierSet = ransacEightPoint(currAll, nextAll, 100, 0.01);
+    toc
+    
+    disp(['inliers number is:', num2str(size(maxInlierSet,1))]);
+    showMatches(currFrame, nextFrame, currAll, nextAll);
 end
-
