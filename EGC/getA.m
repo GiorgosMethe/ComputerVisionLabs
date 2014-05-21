@@ -1,4 +1,4 @@
-function [ A ] = getA( p1, p2, matches )
+function [ A ] = getA( p1, p2 )
 %GETA Summary of this function goes here
 %   Detailed explanation goes here
 %%

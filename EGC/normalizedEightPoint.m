@@ -7,8 +7,7 @@ function [ F ] = normalizedEightPoint( p1, p2 )
 p1 = p1(1:2,:);
 p2 = p2(1:2,:);
 
-An = getA(p1, p2);
-Fn = eightPoint(An);
+Fn = eightPoint(p1, p2);
 Fn = reshape(Fn, 3, 3);
 
 F = T2' * Fn * T1;
