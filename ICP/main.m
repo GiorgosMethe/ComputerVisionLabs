@@ -10,19 +10,20 @@ addpath flann
 base = cleanData(readPcd(strcat('data/',num2str(1,'%.10d'),'.pcd')));
 base1 = base;
 tr = eye(4);
-for frame = 2:5:98
-    frame
+for frame = 2:1:98
+    disp(['frame:',num2str(frame)]);
+    tic
     %% load target point cloud
     target = cleanData(readPcd(strcat('data/',num2str(frame,'%.10d'),'.pcd')));
     %% Iterative procedures
     [R, T, tr, target,avgRMS] = icp(tr, base, target);
-    %% New target
-    base = target;
     %% For question 2.1 -- create a merged point cloud with all frames
-    base1 = cat(1, base1, target);
+    %base = target;
+    %base1 = cat(1, base1, target);
     %% For question 2.2 -- merge the two point clouds
-    %base = cat(1, base, target);
+    base = cat(1, base, target);
     errors(frame) = avgRMS;
+    toc
 end
 %% Show final result
 figure

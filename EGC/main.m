@@ -16,6 +16,7 @@ frameList = dir('House');
 frameList = frameList(~[frameList.isdir]);
 
 %% Load images
+tic
 disp('Loading images...')
 for i = 1:size(frameList,1);
     img = imread(frameList(i).name);
@@ -26,42 +27,60 @@ for i = 1:size(frameList,1);
     disp([num2str(i) ,'/', num2str(size(frameList,1))]);
 end
 disp('Finish loading images...')
+toc
 
 %% Extract foreground via active contour
 disp('Extracting foreground...')
 foreground = getForeground(I(:,:,1));
 disp('Finish extracting foreground...')
 
+tic
+disp('Extracting sift features...')
+for frame=1:size(frameList,1);
+    disp([num2str(frame) ,'/', num2str(size(frameList,1))]);
+    % take the two images
+    currFrame = I(:,:,frame);
+    % Compute Sift
+    [fcurr, dcurr] = vl_sift(currFrame);
+    % Filter matches
+    [fcurr, dcurr] = getForegroundPoints(fcurr, dcurr, foreground);
+    set.f = fcurr;
+    set.d = dcurr;
+    sift(frame) = set;
+end
+disp('Finish extracting sift features...')
+toc
+
+
+%% Show points - cameras figure
 pvm = [];
 pvmList = [];
 frames = [ 1:size(frameList,1), 1];
 for frame = 1:size(frames,2)-1;
     disp(['Frames: ', num2str(frames(frame)), '-->', num2str(frames(frame+1))]);
     tic
-    %% take the two images
-    currFrame = I(:,:,frames(frame));
-    nextFrame = I(:,:,frames(frame+1));
-    
-    %% Compute Sift
-    [fcurr, dcurr] = vl_sift(currFrame);
-    [fnext, dnext] = vl_sift(nextFrame);
-    
-    %% Filter matches
-    [fcurr, dcurr] = getForegroundPoints(fcurr, dcurr, foreground);
-    [fnext, dnext] = getForegroundPoints(fnext, dnext, foreground);
-    
-    %% Compute matches
+    fcurr = sift(frames(frame)).f;
+    dcurr = sift(frames(frame)).d;
+    fnext = sift(frames(frame+1)).f;
+    dnext = sift(frames(frame+1)).d;
+    % Compute matches
     [matches, scores] = vl_ubcmatch(dcurr, dnext);
     
-    %% Matches coordinates for the two images -- without not matched points
+    % Matches coordinates for the two images -- without not matched points
     currAll = fcurr(1:2,matches(1,:));
     nextAll = fnext(1:2,matches(2,:));
     
-    %% Ransac with eight point
-    normalized = true;
+    % Normalize points
+    % currAllcenter = sum(currAll,2) / size(currAll,2);
+    % nextAllcenter = sum(nextAll,2) / size(nextAll,2);
+    % currAll = currAll - repmat(currAllcenter,1,size(currAll,2));
+    % nextAll = nextAll - repmat(nextAllcenter,1,size(nextAll,2));
+    
+    % Ransac with eight point
+    normalized = false;
     maxInlierSet = ransacEightPoint(currAll, nextAll, normalized, 1000, 1.9);
     
-    %% Chaining
+    % Chaining
     [pvm, pvmList] = getPvm(currAll, nextAll, maxInlierSet, pvm, pvmList);
     toc
     

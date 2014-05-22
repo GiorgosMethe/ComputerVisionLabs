@@ -35,5 +35,5 @@ for iterations=1:100
     end
 end
 avgRMS = sumRMS/100;
-iterations
+disp(['icp iterations:',num2str(iterations)]);
 end
