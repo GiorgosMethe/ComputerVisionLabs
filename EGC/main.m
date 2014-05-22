@@ -8,13 +8,14 @@ if(ismac)
 else
     run('vlfeat-0.9.18/toolbox/vl_setup.m')
 end
-addpath('TeddyBear')
-addpath('House')
+addpath('TeddyBear');
+addpath('House');
 
-
-frameList = dir('TeddyBear');
+%% Choose folder you want to run chaining
+frameList = dir('House');
 frameList = frameList(~[frameList.isdir]);
 
+%% Load images
 disp('Loading images...')
 for i = 1:size(frameList,1);
     img = imread(frameList(i).name);
@@ -26,13 +27,16 @@ for i = 1:size(frameList,1);
 end
 disp('Finish loading images...')
 
-frames = [ 1:size(frameList,1), 1];
+%% Extract foreground via active contour
+disp('Extracting foreground...')
 foreground = getForeground(I(:,:,1));
+disp('Finish extracting foreground...')
 
 pvm = [];
 pvmList = [];
+frames = [ 1:size(frameList,1), 1];
 for frame = 1:size(frames,2)-1;
-    disp([num2str(frames(frame)), '-->', num2str(frames(frame+1))]);
+    disp(['Frames: ', num2str(frames(frame)), '-->', num2str(frames(frame+1))]);
     tic
     %% take the two images
     currFrame = I(:,:,frames(frame));
@@ -43,8 +47,8 @@ for frame = 1:size(frames,2)-1;
     [fnext, dnext] = vl_sift(nextFrame);
     
     %% Filter matches
-%     [fcurr, dcurr] = getForegroundPoints(fcurr, dcurr, foreground);
-%     [fnext, dnext] = getForegroundPoints(fnext, dnext, foreground);
+    [fcurr, dcurr] = getForegroundPoints(fcurr, dcurr, foreground);
+    [fnext, dnext] = getForegroundPoints(fnext, dnext, foreground);
     
     %% Compute matches
     [matches, scores] = vl_ubcmatch(dcurr, dnext);
@@ -57,20 +61,22 @@ for frame = 1:size(frames,2)-1;
     normalized = true;
     maxInlierSet = ransacEightPoint(currAll, nextAll, normalized, 1000, 1.9);
     
-    %% Make 
+    %% Chaining
     [pvm, pvmList] = getPvm(currAll, nextAll, maxInlierSet, pvm, pvmList);
     toc
     
     disp(['inliers number is:', num2str(size(maxInlierSet,1))]);
-%     showMatches(currFrame, nextFrame, currAll, nextAll, maxInlierSet);
+    disp('----');
+    % showMatches(currFrame, nextFrame, currAll, nextAll, maxInlierSet);
 end
 
+%% Show points - cameras figure
 pvmListImg = mat2gray(pvmList, [0 1]);
 pvmListImg = imresize(pvmListImg, [800 size(pvmList,2)]);
 figure
 imshow(pvmListImg);
 
-%% Show points that follow enough frames -- chaining
+%% Show points that follow enough frames -- from chaining matrix
 pointScores = sum(pvmList,1);
 bestPointsIndexes = find(pointScores>40);
 
@@ -81,7 +87,7 @@ for frame = 1:size(frames,2)-1;
     hold on;
     plot(pvm((2*(frame))-1,bestPointsIndexes),pvm((2*(frame)),bestPointsIndexes),'bo');
     hold off;
-    pause(0.5);
+    pause(0.3);
 end
 
 
