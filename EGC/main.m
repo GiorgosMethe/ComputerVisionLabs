@@ -44,6 +44,11 @@ for frame=1:size(frameList,1);
     [fcurr, dcurr] = vl_sift(currFrame);
     % Filter matches
     [fcurr, dcurr] = getForegroundPoints(fcurr, dcurr, foreground);
+    
+    fcurrCenter = sum(fcurr,2) / size(fcurr,2);
+    fcurrCenter(3:4) = [0; 0];
+    fcurr = fcurr - repmat(fcurrCenter,1,size(fcurr,2));
+    
     set.f = fcurr;
     set.d = dcurr;
     sift(frame) = set;
@@ -69,12 +74,6 @@ for frame = 1:size(frames,2)-1;
     % Matches coordinates for the two images -- without not matched points
     currAll = fcurr(1:2,matches(1,:));
     nextAll = fnext(1:2,matches(2,:));
-    
-    % Normalize points
-    % currAllcenter = sum(currAll,2) / size(currAll,2);
-    % nextAllcenter = sum(nextAll,2) / size(nextAll,2);
-    % currAll = currAll - repmat(currAllcenter,1,size(currAll,2));
-    % nextAll = nextAll - repmat(nextAllcenter,1,size(nextAll,2));
     
     % Ransac with eight point
     normalized = false;
