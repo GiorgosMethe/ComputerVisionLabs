@@ -4,11 +4,12 @@ clc
 addpath('iso2mesh');
 
 data = readPcd('johan_sundin.pcd');
-data = data(:,[1:3]);
+dataCoords = data(:,[1:3]);
+colors = data(:,[5:7]);
+colors(:,:) = (((colors(:,:)+1).*255)/2)/255;%normalize to 0..1
+dataCoords = imfill(dataCoords);
 
-data = imfill(data);
-
-[t,tnorm]=MyRobustCrust(data);
+[t,tnorm]=MyRobustCrust(dataCoords);
 
 
 %% plot the points cloud
@@ -18,7 +19,7 @@ subplot(1,2,1)
 hold on
 axis equal
 title('Points Cloud','fontsize',14)
-plot3(data(:,1),data(:,2),data(:,3),'g.')
+plot3(dataCoords(:,1),dataCoords(:,2),dataCoords(:,3),'g.')
 view(3);
 axis vis3d
 
@@ -29,6 +30,6 @@ subplot(1,2,2)
 hold on
 title('Output Triangulation','fontsize',14)
 axis equal
-trisurf(t,data(:,1),data(:,2),data(:,3),'facecolor','c','edgecolor','b')
+trisurf(t,dataCoords(:,1),dataCoords(:,2),dataCoords(:,3),'facecolor','b');
 view(3);
 axis vis3d
