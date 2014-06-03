@@ -109,4 +109,8 @@ for frame = 1:size(frames,2)-1;
 end
 
 
+%% Assignment 3 (SFM) needs PVM. That's why i implement it here.
+D = pvm(bestPointsIndexes); %matrix D.
+[M,S] = sfm(D);
+
 
