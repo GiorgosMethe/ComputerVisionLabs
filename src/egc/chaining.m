@@ -1,4 +1,4 @@
-% function [ pvmList ] = chaining(frames_dir)
+function [ pvm, pvmList ] = chaining(frames_dir)
 
 %% Choose folder you want to run chaining
 addpath(strcat('../../data/','House'));
@@ -95,6 +95,6 @@ imshow(pvmListImg);
 %     pause(0.3);
 % end
 
-% end
+end
 
 
