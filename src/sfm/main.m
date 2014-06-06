@@ -10,17 +10,21 @@ addpath('../egc/');
 addpath('../../data/TeddyBear/');
 addpath('../../data/House/');
 
-% [ pvm , pvmList ] = chaining('House');
+[ pvm , pvmList ] = chaining('House');
 
+%load mat file for teddy bear
+% load('pvmList.mat');
+% load('pvm.mat');
 
-pvmListImg = mat2gray(pvmList, [0 1]);
-pvmListImg = imresize(pvmListImg, [800 size(pvmList,2)]);
+% pvmListImg = mat2gray(pvmList, [0 1]);
+% pvmListImg = imresize(pvmListImg, [800 size(pvmList,2)]);
+% 
+% figure()
+% imshow(pvmListImg);
 
-figure()
-imshow(pvmListImg);
+%Construct matrix D for sfm
+D = constructD(pvmList, pvm);
+[M, S] = sfm(D);
 
-
-
-
-
-[M, S] = sfm(pvmList);
+figure
+plot3(S(1,:),S(2,:),S(3,:),'b.');
