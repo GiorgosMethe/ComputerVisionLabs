@@ -3,25 +3,25 @@ function [M,S] = sfm(D)
 %% center points in D
 n = size(D,2);
 
-for i=1:size(D,1)
-    %calculate centroid of points for each image 
-    lineSum = 0;
-    times =0;
-    for j=1:n
-        if D(i,j)~=0
-            lineSum = lineSum + D(i,j);
-            times = times+1;
-        end
-    end
-    centroid = lineSum/times;
-    
-    %subtract centroid from coords
-    for q=1:n
-        if D(i,q)~=0
-            D(i,q)= D(i,q)-centroid;
-        end
-    end
-end
+% for i=1:size(D,1)
+%     %calculate centroid of points for each image 
+%     lineSum = 0;
+%     times =0;
+%     for j=1:n
+%         if D(i,j)~=0
+%             lineSum = lineSum + D(i,j);
+%             times = times+1;
+%         end
+%     end
+%     centroid = lineSum/times;
+%     
+%     %subtract centroid from coords
+%     for q=1:n
+%         if D(i,q)~=0
+%             D(i,q)= D(i,q)-centroid;
+%         end
+%     end
+% end
 
  % Apply SVD
   [U,W,V] = svd(D);

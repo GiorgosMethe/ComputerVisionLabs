@@ -1,8 +1,8 @@
 function [ pvm, pvmList ] = chaining(frames_dir)
 
 %% Choose folder you want to run chaining
-addpath(strcat('../../data/','House'));
-frameList = dir(strcat('../../data/','House'));
+addpath(strcat('../../data/',frames_dir));
+frameList = dir(strcat('../../data/',frames_dir));
 frameList = frameList(~[frameList.isdir]);
 
 %% Load images
@@ -65,8 +65,8 @@ for frame = 1:size(frames,2)-1;
     nextAll = fnext(1:2,matches(2,:));
     
     % Ransac with eight point
-    normalized = false;
-    maxInlierSet = ransacEightPoint(currAll, nextAll, normalized, 1000, 1.9);
+    normalized = true;
+    maxInlierSet = ransacEightPoint(currAll, nextAll, normalized, 1000, 0.5);
     
     % Chaining
     [pvm, pvmList] = getPvm(currAll, nextAll, maxInlierSet, pvm, pvmList);
