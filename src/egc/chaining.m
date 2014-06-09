@@ -1,4 +1,4 @@
-function [ pvm, pvmList ] = chaining(frames_dir)
+function [ pvm, pvmList ] = chaining(frames_dir, frameStep, ransacMaxIter, ransacThres)
 
 %% Choose folder you want to run chaining
 addpath(strcat('../../data/',frames_dir));
@@ -8,7 +8,7 @@ frameList = frameList(~[frameList.isdir]);
 %% Load images
 tic
 disp('Loading images...')
-for i = 1:size(frameList,1);
+for i = 1:frameStep:size(frameList,1);
     img = imread(frameList(i).name);
     if size(img,3) == 3
         img = rgb2gray(img);
@@ -26,19 +26,19 @@ disp('Finish extracting foreground...')
 
 tic
 disp('Extracting sift features...')
-for frame=1:size(frameList,1);
+for frame=1:frameStep:size(frameList,1);
     disp([num2str(frame) ,'/', num2str(size(frameList,1))]);
-    % take the two images
+    %% take the image
     currFrame = Im(:,:,frame);
-    % Compute Sift
-    currFrameSmoothed = vl_imsmooth(currFrame,0.5);
-    [fcurr, dcurr] = vl_dsift(currFrameSmoothed);
-    % Filter matches
+    %% Compute Sift
+    [fcurr, dcurr] = vl_sift(currFrame);
+    %% Filter matches
     [fcurr, dcurr] = getForegroundPoints(fcurr, dcurr, foreground);
-    
+    %% Normalize data
     fcurrCenter = sum(fcurr,2) / size(fcurr,2);
+    fcurrCenter(3:4) = [0; 0];
     fcurr = fcurr - repmat(fcurrCenter,1,size(fcurr,2));
-%     fcurr(3:4) = [0; 0];
+    %% set data to be used later
     set.f = fcurr;
     set.d = dcurr;
     sift(frame) = set;
@@ -50,31 +50,28 @@ toc
 pvm = [];
 pvmList = [];
 frames = [ 1:size(frameList,1), 1];
-for frame = 1:size(frames,2)-1;
-    disp(['Frames: ', num2str(frames(frame)), '-->', num2str(frames(frame+1))]);
+for frame = 1:frameStep:size(frames,2)-frameStep;
+    disp(['Frames: ', num2str(frames(frame)), '-->', num2str(frames(frame+frameStep))]);
     tic
     fcurr = sift(frames(frame)).f;
     dcurr = sift(frames(frame)).d;
-    fnext = sift(frames(frame+1)).f;
-    dnext = sift(frames(frame+1)).d;
-    % Compute matches
-    [matches, scores] = vl_ubcmatch(dcurr, dnext);
-    
-    % Matches coordinates for the two images -- without not matched points
+    fnext = sift(frames(frame+frameStep)).f;
+    dnext = sift(frames(frame+frameStep)).d;
+    %% Compute matches
+    [matches, ~] = vl_ubcmatch(dcurr, dnext);
+    %% Matches coordinates for the two images -- without not matched points
     currAll = fcurr(1:2,matches(1,:));
     nextAll = fnext(1:2,matches(2,:));
-    
-    % Ransac with eight point
+    %% Ransac with eight point
     normalized = false;
-    maxInlierSet = ransacEightPoint(currAll, nextAll, normalized, 1000, 0.5);
-    
-    % Chaining
+    maxInlierSet = ransacEightPoint(currAll, nextAll, normalized, ransacMaxIter, ransacThres);
+    %% Chaining
     [pvm, pvmList] = getPvm(currAll, nextAll, maxInlierSet, pvm, pvmList);
-    toc
-    
+    %% Display and visualization of inliers' set
     disp(['inliers number is:', num2str(size(maxInlierSet,1))]);
     disp('----');
     % showMatches(currFrame, nextFrame, currAll, nextAll, maxInlierSet);
+    toc
 end
 
 %% Show points - cameras figure
@@ -83,17 +80,6 @@ pvmListImg = imresize(pvmListImg, [800 size(pvmList,2)]);
 
 figure()
 imshow(pvmListImg);
-
-%% Show points that follow enough frames -- from chaining matrix
-% for frame = 1:size(frames,2)-1;
-%     currFrame = Im(:,:,frames(frame));
-%     figure()
-%     imshow(uint8(currFrame));
-%     hold on;
-%     plot(pvm((2*(frame))-1,bestPointsIndexes),pvm((2*(frame)),bestPointsIndexes),'bo');
-%     hold off;
-%     pause(0.3);
-% end
 
 end
 
