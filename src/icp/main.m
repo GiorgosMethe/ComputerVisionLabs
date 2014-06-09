@@ -2,10 +2,11 @@ clear all
 close all
 clc
 %================== SETTINGS ========================
-dataDir = '../../data/icp/';
-flannDir = 'usr/local/share/flann/matlab/';
+%% added filepath for flann library functions
+addpath '../../data/icp/'
+addpath '/usr/local/share/flann/matlab'
 %% search type: 1 brute, 2 unif sampling, 3 knn treesearch
-searchType = 2;
+searchType = 3;
 %% frameSkip: how many frame it'll skip
 frameSkip = 1;
 %% merged:true -- Merge pointclouds to base and compare to target
@@ -14,10 +15,6 @@ merged = false;
 %% Max iterations of icp
 maxIter = 100;
 %================= END SETTINGS=======================
-
-%% added filepath for flann library functions
-addpath dataDir
-addpath flannDir
 
 %% read arrays, clean Data
 base = cleanData(readPcd(strcat(num2str(1,'%.10d'),'.pcd')));
