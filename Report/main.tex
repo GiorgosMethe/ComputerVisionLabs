@@ -50,7 +50,9 @@
 
 \section{Introduction}
 \label{introduction}
-In this technical report we present the implementation details along with experimental results we obtained for two separate classes of algorithms. Section~\ref{introduction} introduces each one of these algorithms, discussing their basic structure and applications. In Section~\ref{icp} the three dimensional point cloud registration technique called Iterative Closest Point\cite{icp} (ICP) algorithm is analyzed, in terms of various aspects such as speed, accuracy, stability and tolerance to noise, by modifying the point selection
+Iterative Closest Point (ICP) as first described in~\cite{icp} 
+ 
+Section~\ref{introduction} introduces each one of these algorithms, discussing their basic structure and applications. In Section~\ref{icp} the three dimensional point cloud registration technique called Iterative Closest Point\cite{icp} (ICP) algorithm is analyzed, in terms of various aspects such as speed, accuracy, stability and tolerance to noise, by modifying the point selection
 technique.
 Section~\ref{egc} and ~\ref{sfm} describes the process of estimating shape and motion parameters of a 3d scene from 2d images depicting the scene from multiple views. In particular Section~\ref{egc} addresses the task of computing the intrinsic projective (epipolar) geometry between two views and obtaining the global camera poses by chaining pairwise these geometries, while in Section~\ref{sfm} the method for extracting the 3d structure of the scene is described.
 
