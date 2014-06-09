@@ -10,14 +10,14 @@ addpath('../egc/');
 addpath('../../data/TeddyBear/');
 addpath('../../data/House/');
 
-[ pvm , pvmList ] = chaining('House',3, 1000, 2.0);
+[ pvm , pvmList ] = chaining('House',3, 1000, 5.0);
 
 save('pvm.mat','pvm')
 save('pvmList.mat','pvmList')
 
-% load mat file for teddy bear
-load('pvmList.mat');
-load('pvm.mat');
+% load mat file for teddy bearq
+% load('pvmList.mat');
+% load('pvm.mat');
 
 pvmListImg = mat2gray(pvmList, [0 1]);
 pvmListImg = imresize(pvmListImg, [800 size(pvmList,2)]);
@@ -28,7 +28,7 @@ pvmListImg = imresize(pvmListImg, [800 size(pvmList,2)]);
 %Construct matrix D for sfm
 D = constructD(pvmList, pvm);
 a = sum(pvmList,1);
-indexes = find(a > 47);
+indexes = find(a > 1);
 D = pvm(:,indexes);
 [M, S] = sfm(D);
 

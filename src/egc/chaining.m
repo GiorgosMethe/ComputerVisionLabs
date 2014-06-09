@@ -31,7 +31,7 @@ for frame=1:frameStep:size(frameList,1);
     %% take the image
     currFrame = Im(:,:,frame);
     %% Compute Sift
-    [fcurr, dcurr] = vl_sift(currFrame);
+    [fcurr, dcurr] = vl_sift(currFrame, 'EdgeThresh', 50);
     %% Filter matches
     [fcurr, dcurr] = getForegroundPoints(fcurr, dcurr, foreground);
     %% Normalize data
