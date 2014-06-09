@@ -10,28 +10,33 @@ addpath('../egc/');
 addpath('../../data/TeddyBear/');
 addpath('../../data/House/');
 
-% [ pvm , pvmList ] = chaining('TeddyBear');
-% 
-% save('pvm.mat','pvm')
-% save('pvmList.mat','pvmList')
+[ pvm , pvmList ] = chaining('House');
+
+save('pvm.mat','pvm')
+save('pvmList.mat','pvmList')
 
 % load mat file for teddy bear
-load('pvmList.mat');
-load('pvm.mat');
+% load('pvmList.mat');
+% load('pvm.mat');
 
 pvmListImg = mat2gray(pvmList, [0 1]);
 pvmListImg = imresize(pvmListImg, [800 size(pvmList,2)]);
 
-figure()
-imshow(pvmListImg);
+% figure()
+% imshow(pvmListImg);
 
 %Construct matrix D for sfm
 D = constructD(pvmList, pvm);
 a = sum(pvmList,1);
-indexes = find(a > 2);
+indexes = find(a > 47);
 D = pvm(:,indexes);
-
 [M, S] = sfm(D);
+
 
 figure
 plot3(S(1,:),S(2,:),S(3,:),'b.');
+
+D = load('D.txt');
+[M, S] = sfm(D);
+figure
+plot3(S(1,:),S(2,:),S(3,:),'r.');

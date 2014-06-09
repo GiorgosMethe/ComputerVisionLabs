@@ -31,14 +31,14 @@ for frame=1:size(frameList,1);
     % take the two images
     currFrame = Im(:,:,frame);
     % Compute Sift
-    [fcurr, dcurr] = vl_sift(currFrame);
+    currFrameSmoothed = vl_imsmooth(currFrame,0.5);
+    [fcurr, dcurr] = vl_dsift(currFrameSmoothed);
     % Filter matches
     [fcurr, dcurr] = getForegroundPoints(fcurr, dcurr, foreground);
     
     fcurrCenter = sum(fcurr,2) / size(fcurr,2);
-    fcurrCenter(3:4) = [0; 0];
     fcurr = fcurr - repmat(fcurrCenter,1,size(fcurr,2));
-    
+%     fcurr(3:4) = [0; 0];
     set.f = fcurr;
     set.d = dcurr;
     sift(frame) = set;
@@ -65,7 +65,7 @@ for frame = 1:size(frames,2)-1;
     nextAll = fnext(1:2,matches(2,:));
     
     % Ransac with eight point
-    normalized = true;
+    normalized = false;
     maxInlierSet = ransacEightPoint(currAll, nextAll, normalized, 1000, 0.5);
     
     % Chaining
