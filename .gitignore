@@ -1,8 +1,8 @@
 data/icp/*
-/Report/main.aux
-/Report/main.log
-/Report/main.out
+/Report/*.aux
+/Report/*.log
+/Report/*.out
 /Report/*.pdf
-/Report/main.synctex.gz
-/Report/main.toc
-/Report/main.pdf
+/Report/*.synctex.gz
+/Report/*.toc
+/Report/*.pdf

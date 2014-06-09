@@ -8,7 +8,7 @@ addpath '/usr/local/share/flann/matlab'
 %% search type: 1 brute, 2 unif sampling, 3 knn treesearch
 searchType = 3;
 %% frameSkip: how many frame it'll skip
-frameSkip = 1;
+frameSkip = 2;
 %% merged:true -- Merge pointclouds to base and compare to target
 %% merged:false -- Merge pointclouds to baseMerged and compare base to target all the time 
 merged = false;

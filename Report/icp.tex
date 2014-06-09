@@ -1,2 +1,10 @@
 \section{Iterative Closest Point}
 \label{icp}
+
+Iterative closest point algorithm~\cite{icpOr} as the name suggests is a method of registration of surface and three dimensional point clouds. The main steps of this method is first to find the closest points from a base surface to a target, the second step is to compute the rotation and the translation of the target surface in order to register with the base one. This process continues iteratively until a mean square distance metric does not change any more.
+
+Rotation and translation of a three dimensional surface has six degrees of freedom, which the algorithm is guaranteed to converge to a local optimum every time. On the other hand, a major aspect on the performance as well as the convergence of the algorithm is the selection of the points from the base surface and the search for the closest ones to the target surface. A good selection policy of the points can lead to an optimal registration of the surfaces and a very good performace computationalwise.
+
+There were proposed a few variants~\cite{icpVar} of the ICP algorithm, in which performace improvements resulted from different techniques for, closest point selection, point rejection and error metric. For point selection instead of using all available points, a uniform subsampling / random sampling of them can lead to faster seeking of the closest points. Also, selecting points from more informative regions of the surfaces can lead to better performace since more points are needed if the gradients of the surface is higher. For the matching points now, we can use a few variants apart from searching the whole space of the other surface. A projection of each point in the first surface to the second one can give us a good estimation about where the closest point is. Also color and angle between surfaces can give us useful information about where to find these points.
+
+\subsection{Dataset}
