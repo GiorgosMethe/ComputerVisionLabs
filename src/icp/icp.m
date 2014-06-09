@@ -1,4 +1,4 @@
-function[R, T, tr, target,avgRMS] = icp(tr, base, target)
+function[R, T, tr, target,avgRMS] = icp(tr, base, target, type, maxIter)
 
 % Initialize rotation, translation
 rms = 0;
@@ -9,14 +9,19 @@ T = (tr(1:3,4))';
 target = (R * target(:,1:3)')' + repmat(T,size(target,1),1);
 sumRMS = 0;
 
-for iterations=1:100
+for iterations=1:maxIter
     %% Find Closest Points
-    % Brute force
-    %[baseCP, targetCP] = closestPoints(base, target, 0);
-    % Uniform Sampling
-    %[baseCP, targetCP] = closestPoints(base, target, 1, 10000);
-    % KD-tree NN search
-    [baseCP, targetCP] = closestPoints(base, target, 2);
+    
+    if type == 1
+        %% Brute force
+        [baseCP, targetCP] = closestPoints(base, target, 0);
+    elseif type == 2
+        %% Uniform Sampling
+        [baseCP, targetCP] = closestPoints(base, target, 1, 1000);
+    elseif type == 3
+        %% KD-tree NN search
+        [baseCP, targetCP] = closestPoints(base, target, 2);
+    end
     
     %% Get transformation for Rotation, Translation through SVD
     [R, T] = getTransformation(baseCP, targetCP);
