@@ -3,8 +3,37 @@
 
 Iterative closest point algorithm~\cite{icpOr} as the name suggests is a method of registration of surface and three dimensional point clouds. The main steps of this method is first to find the closest points from a base surface to a target, the second step is to compute the rotation and the translation of the target surface in order to register with the base one. This process continues iteratively until a mean square distance metric does not change any more.
 
-Rotation and translation of a three dimensional surface has six degrees of freedom, which the algorithm is guaranteed to converge to a local optimum every time. On the other hand, a major aspect on the performance as well as the convergence of the algorithm is the selection of the points from the base surface and the search for the closest ones to the target surface. A good selection policy of the points can lead to an optimal registration of the surfaces and a very good performace computationalwise.
+Rotation and translation of a three dimensional surface has six degrees of freedom, which the algorithm is guaranteed to converge to a local optimum every time. On the other hand, a major aspect on the performance as well as the convergence of the algorithm is the selection of the points from the base surface and the search for the closest ones to the target surface. A good selection policy of the points can lead to an optimal registration of the surfaces and a very good performance computational-wise.
 
-There were proposed a few variants~\cite{icpVar} of the ICP algorithm, in which performace improvements resulted from different techniques for, closest point selection, point rejection and error metric. For point selection instead of using all available points, a uniform subsampling / random sampling of them can lead to faster seeking of the closest points. Also, selecting points from more informative regions of the surfaces can lead to better performace since more points are needed if the gradients of the surface is higher. For the matching points now, we can use a few variants apart from searching the whole space of the other surface. A projection of each point in the first surface to the second one can give us a good estimation about where the closest point is. Also color and angle between surfaces can give us useful information about where to find these points.
+There were proposed a few variants~\cite{icpVar} of the ICP algorithm, in which performance improvements resulted from different techniques for, closest point selection, point rejection and error metric. For point selection instead of using all available points, a uniform sub-sampling/random sampling of them can lead to faster seeking of the closest points. Also, selecting points from more informative regions of the surfaces can lead to better performance since more points are needed if the gradients of the surface is higher. For the matching points now, we can use a few variants apart from searching the whole space of the other surface. A projection of each point in the first surface to the second one can give us a good estimation about where the closest point is. Also color and angle between surfaces can give us useful information about where to find these points.
 
 \subsection{Dataset}
+Our dataset consist of $100$ three dimensional point clouds represent surfaces taken from multiple views of a human body. Figure~\ref{fig:dataset.eps} presents the point cloud surface.
+
+\subsection{Implementation}
+% ADD SOME EQUATIONS HERE
+For the implementation of our algorithm we followed the work ``Implementation of a 3D ICP-based Scan Matches''~\cite{icpImp}. The first and most computationally expensive step of the algorithm is to find for each point of the target cloud the closest point there is in the base one. Doing this we end up having two sets of points with size equal to the target cloud's size. These points clouds need to be centered so we can eliminate any translation from the target cloud. Thus, we normalize the base and the target cloud closest point sets subtracting their centers from each of their points. Having the two normalized cloud with singular value decomposition we can estimate the rotation of the target cloud against the base. This process continues computing again the closest points of each cloud and transform again the target cloud until the error is minimized.
+
+Given the rotation, we transform the center of the target cloud multiplied the homogeneous coordinates of it with the estimated rotation matrix subtracting it from the base cloud's center point. The resulting 3-D point will give as the translation of the target cloud in respect to the base one. Applying the estimated translation and rotation transformation in the target cloud we get the new target cloud from which we compute the average euclidean distance from the base cloud. This process runs iteratively until the average euclidean distance is minimized.
+
+An important aspect of the algorithm is also about the way the merging of the two point cloud is done. There are two methods, the first is to merge the two point clouds as one and consider it as the base cloud comparing it with the next frame. The second is to store the merged point cloud and proceed considering the target cloud of the first iteration as the base cloud of the second.
+
+
+\subsection{Results}
+%ADD ERROR FIGURES
+%ADD RESULTED POINT CLOUDS
+
+
+\subsection{Discussing the ICP algorithm}
+Using the estimated camera poses, merge the point-clouds of all the scenes into one point-cloud and visualize the result. Does the merging produce sufficient result? Discuss why. Now, estimate the camera pose and merge the results using every 2 nd , 4 th , and 10 th frames. Does the camera pose estimation change?
+
+So the estimated camera poses change in comparison with the previous estimates (Sec- tion 2.1)? Does this estimation produce better results?
+
+1. What are the drawbacks of the ICP algorithm?
+
+Slow, Surfaces need to be really close, otherwise the merging sucks
+
+2. How do you think the ICP algorithm can be improved, beside the techniques mentioned in [2], in terms of efficiency and accuracy?
+
+
+

@@ -1,6 +1,10 @@
 clear all
 close all
 clc
+
+matlabpool ('open',4);
+set = [1 2 4 10];
+parfor exp = 1:4
 %================== SETTINGS ========================
 %% added filepath for flann library functions
 addpath '../../data/icp/'
@@ -8,18 +12,19 @@ addpath '/usr/local/share/flann/matlab'
 %% search type: 1 brute, 2 unif sampling, 3 knn treesearch
 searchType = 3;
 %% frameSkip: how many frame it'll skip
-frameSkip = 2;
+frameSkip = set(exp);
 %% merged:true -- Merge pointclouds to base and compare to target
 %% merged:false -- Merge pointclouds to baseMerged and compare base to target all the time 
-merged = false;
+merged = true;
 %% Max iterations of icp
-maxIter = 100;
+maxIter = 50;
 %================= END SETTINGS=======================
 
 %% read arrays, clean Data
 base = cleanData(readPcd(strcat(num2str(1,'%.10d'),'.pcd')));
 baseMerged = base;
 tr = eye(4);
+errors = []; 
 disp(['Starting icp...']);
 for frame = 1+frameSkip:frameSkip:99
     disp(['frame:',num2str(frame)]);
@@ -37,7 +42,7 @@ for frame = 1+frameSkip:frameSkip:99
     else
         base = cat(1, base, target);
     end
-    errors(frame) = avgRMS;
+    errors = [errors avgRMS];
 end
 %% Set final result
 if (merged == false)
@@ -45,7 +50,17 @@ if (merged == false)
 else
     resultedPointCloud = base;
 end
+% figure()
+% bar(errors)
 %% Visualize pointcloud
-figure()
-plot3(resultedPointCloud(1,:),resultedPointCloud(2,:),resultedPointCloud(3,:),'b.');
-disp(['Done']);
+% figure()
+% plot3(resultedPointCloud(1,:),resultedPointCloud(2,:),resultedPointCloud(3,:),'b.');
+% disp(['Done']);
+
+parsave(strcat('errors',num2str(set(exp)), '.mat'), errors);
+parsave(strcat('tr',num2str(set(exp)), '.mat'), tr);
+parsave(strcat('resultedPointCloud',num2str(set(exp)), '.mat'), resultedPointCloud);
+
+end
+
+matlabpool close;
