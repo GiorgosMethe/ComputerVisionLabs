@@ -1,3 +1,11 @@
 \section{Epipolar Geometry and Chaining}
 \label{egc}
-In this section we are going to describe the first step of the Structure from Motion algorithm described in Section~\ref{sfm} which is to exploit prior knowledge about the scene. This is done by finding corresponding image points in multiple views, compute their epipolar geometry which is expressed algebraically by the fundamental matrix which can be decomposed to obtain the projection matrices.
+In this section we are going to describe the first step of the Structure from Motion algorithm, which is to exploit prior knowledge about the scene. This is done by finding corresponding image points in multiple views and compute their epipolar geometry which is expressed algebraically by the fundamental matrix which can be decomposed to obtain the required projection matrices.
+
+\subsection{DataSet}
+The dataset we used consists of 49 frames, each one of them depicting a house from a different view. In each frame the camera movement is small, making the process of extracting structure from the scene an easier task.
+
+\subsection{Implementation}
+An important step of the algorithm is to identify local features in each image which are consistent in most of the frames. For this purpose we used a Scale-invariant feature transform (or SIFT) algorithm to detect points of interest in each frame. In order to restrict the search process of the SIFT detector an active contour based segmentation was used. By applying this technique we were able to segment the frames into background and foreground regions, allowing us to keep only the points that exist on the object of interest.
+
+To estimate the fundamental matrix from the corresponding image points extracted by the SIFT detector the normalized eight-point algorithm~\cite{eight-point} was implemented. This variational algorithm leads to a more stable result than the simple eight-point implementation.  
