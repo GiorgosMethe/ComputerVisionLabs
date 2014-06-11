@@ -2,29 +2,26 @@ clear all
 close all
 clc
 
-matlabpool ('open',4);
-set = [1 2 4 10];
-parfor exp = 1:4
-%================== SETTINGS ========================
-%% added filepath for flann library functions
+%% ================== SETTINGS ========================
+% added filepath for flann library functions
 addpath '../../data/icp/'
 addpath '/usr/local/share/flann/matlab'
-%% search type: 1 brute, 2 unif sampling, 3 knn treesearch
-searchType = 3;
-%% frameSkip: how many frame it'll skip
-frameSkip = set(exp);
-%% merged:true -- Merge pointclouds to base and compare to target
-%% merged:false -- Merge pointclouds to baseMerged and compare base to target all the time 
-merged = true;
-%% Max iterations of icp
+% search type: 0 brute, 1 unif sampling, 2 knn treesearch
+searchType = 1;
+% frameSkip: how many frame it'll skip
+frameSkip = 4; % 1,2,4,10
+% merged:true -- Merge pointclouds to base and compare to target
+% merged:false -- Merge pointclouds to baseMerged and compare base to target all the time 
+merged = true; % true, false
+% Max iterations of icp
 maxIter = 50;
-%================= END SETTINGS=======================
+%% ================= END SETTINGS=======================
 
 %% read arrays, clean Data
 base = cleanData(readPcd(strcat(num2str(1,'%.10d'),'.pcd')));
 baseMerged = base;
 tr = eye(4);
-errors = []; 
+errors = [];
 disp(['Starting icp...']);
 for frame = 1+frameSkip:frameSkip:99
     disp(['frame:',num2str(frame)]);
@@ -60,7 +57,3 @@ end
 parsave(strcat('errors',num2str(set(exp)), '.mat'), errors);
 parsave(strcat('tr',num2str(set(exp)), '.mat'), tr);
 parsave(strcat('resultedPointCloud',num2str(set(exp)), '.mat'), resultedPointCloud);
-
-end
-
-matlabpool close;

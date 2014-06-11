@@ -1,2 +1,33 @@
 \section{Structure from Motion}
 \label{sfm}
+
+The last part of the lab assignment discusses the final parts of the Structure from Motion (SFM) algorithm. In particular, using the output of the assignment's $2^{nd}$ part, we derive the motion and shape matrix of a given set of points.  
+
+\subsection{Implementation Details}
+As mentioned above, the data used by this part of the algorithm is an $m\times n$ matrix, where $m$ is the total number of frames, and $n$ is the total number of feature points extracted by the previous step of SFM. 
+Given this "Point View" matrix, we gather feature points that persist through a sufficient number of frames, and construct a new $A: 2m\times n'$ matrix, where each row represents a 2D coordinate of each of $n'$ feature points. Note that this matrix is dense enough to adequately describe 3D structure given 2D feature points.
+
+After obtaining matrix $A$, 3D coordinates must be calculated for each feature point, with respect to every frame. In order to achieve that, we need to normalize the 2D coordinates in $A$. For each row of the $A$ matrix, we calculate the centroid (the average coordinate over all feature points) which then we subtract from every point coordinate in the same row. By doing this, we relate every feature point to a 3D position in the resulting 3D structure.
+
+Following normalization, SVD is applied to the (normalized) $A$ matrix to obtain the motion \& shape matrices:  
+$D = U\times W\times V^T$
+
+We need to reduce the rank of the resulting matrices to 3, in order to obtain 3D coordinates, so we use the 3 first columns of $U$, the 3 first rows of $V^T$ and the top-left $3\times 3$ matrix of $W$ to obtain $U_3, W_3,$ and $V^T_3$. Lastly, the matrix \& shape functions are given by: $M = U_3W^{\frac{1}{2}}_3$, $S = W_3^{\frac{1}{2}}V^T_3$
+
+
+
+\subsection{Results}
+
+\subsection{Discussion}
+This last step of the SFM algorithm gave us the opportunity to observe the results in practice. Given a set of frames, we used SFM to construct a 3D model of the object presented. 
+
+However, while experimenting with two different sets of frames (House \& Teddybear), we discovered that the teddybear frameset is not capable of producing an efficient 3D model, while the house frameset does. An explanation to why this happens lies not in the actual implementation of the algorithm, but the dataset itself. It is a fact that the teddybear frameset contains a 360 degree y-axis rotation of the object, resulting in significantly less feature points being persistent through a large number of frames. 
+On the other hand, the house frameset does not contain such steep change in point of view, but only a slight z-axis rotation. As a result, the number of feature points detected in all frames is higher, thus, the 3D model reconstructed by SFM looks more realistic.
+
+\section{Printable 3D Model}
+
+\subsection{Implementation}
+In order to build a printable 3D model given a point cloud, we used the Point Cloud Library (PCL)\cite{pcl}. PCL has built-in functions in order to read and visualize a 3D point cloud using triangulation. 
+
+Snapshots of the visualization are presented in the section below.
+\subsection{Results} 
