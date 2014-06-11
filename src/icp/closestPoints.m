@@ -29,6 +29,10 @@ if type == 0
     %% uniform sampler
 elseif type == 1
     baseCP = ones(arg1,3);
+    if(0)
+    sel = randsample(size(base,1),arg1);
+    base = base(sel,:);
+    end
     sel = randsample(size(target,1),arg1);
     targetCP = target(sel,:);
     for i=1:size(targetCP,1)
