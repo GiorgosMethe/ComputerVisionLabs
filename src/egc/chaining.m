@@ -32,6 +32,7 @@ for frame=1:frameStep:size(frameList,1);
     currFrame = Im(:,:,frame);
     %% Compute Sift
     [fcurr, dcurr] = vl_sift(currFrame,'edgethresh', 30, 'Levels', 30);
+%         [fcurr, dcurr] = vl_sift(currFrame);
     %% Filter matches
     [fcurr, dcurr] = getForegroundPoints(fcurr, dcurr, foreground);
     %% Normalize data

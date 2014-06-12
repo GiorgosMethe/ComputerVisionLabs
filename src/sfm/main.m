@@ -11,9 +11,9 @@ addpath('../../data/TeddyBear/');
 addpath('../../data/House/');
 addpath('pvms');
 
-% [ pvm , pvmList ] = chaining('House',3, 1000, 1.0);
-% save('pvm.mat','pvm')
-% save('pvmList.mat','pvmList')
+[ pvm , pvmList ] = chaining('House',3, 1000, 1.0);
+save('pvm.mat','pvm')
+save('pvmList.mat','pvmList')
 
 %load mat file for teddy bearq
 load('pvmList1.mat');
