@@ -17,7 +17,7 @@ We need to reduce the rank of the resulting matrices to 3, in order to obtain 3D
 \subsection{Dealing with affine ambiguity}
 The process described before, implies a decomposition that is subject to affine transformation\cite{amb}. Taking that into account, we further factorize matrices $M\rightarrow \hat{M}$ \& $S\rightarrow \hat{S}$ according to Morita and Kanade (1997)\cite{amb}. In more detail, we calculate matrix $A^{-1}$ and $A$ where $A$ represents an affine transform that transforms $\hat{M}$ into $M$ and $A^{-1}$ transforms $\hat{S}$ into $S$. Applying these matrix manipulations erases the affine ambiguity, under the assumption that image axes must be perpendicular\cite{amb}.
 
-Looking at figures ~\ref{fig:icp4-11-Amb} and ~\ref{fig:icp4-11}, we can se that the latter has a slightly better structure, as far as the density and the distance between feature points is concerned. 
+Looking at figures ~\ref{fig:icp4-11-Amb} and ~\ref{fig:icp4-11}, we can se that the latter has a slightly better structure, as far as the position and distance between feature points is concerned. 
 
 \subsection{Frame sampling}
 We have observed that many feature points are detected at non-informative positions, implying a noise factor in our SFM implementation. In order to reduce the noise, while also increasing the speed of the algorithm, we sampled though the frame set, by skipping 1, 2, 4, 5 or 8 frames. 
