@@ -9,6 +9,7 @@ run('../../lib/vlfeat-0.9.18/toolbox/vl_setup.m')
 addpath('../egc/');
 addpath('../../data/TeddyBear/');
 addpath('../../data/House/');
+addpath('pvms');
 
 [ pvm , pvmList ] = chaining('House',8, 1000, 1.0);
 save('pvm8.mat','pvm')

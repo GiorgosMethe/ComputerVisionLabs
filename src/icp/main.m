@@ -12,7 +12,7 @@ parfor exp = 1:8
 addpath '../../data/icp/'
 addpath '/usr/local/share/flann/matlab'
 % search type: 0 brute, 1 unif sampling, 2 knn treesearch
-searchType = 1;
+searchType = 0;
 % frameSkip: how many frame it'll skip
 frameSkip = set(exp); % 1,2,4,10
 % merged:true -- Merge pointclouds to base and compare to target

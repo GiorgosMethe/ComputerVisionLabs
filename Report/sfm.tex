@@ -14,7 +14,8 @@ $D = U\times W\times V^T$
 
 We need to reduce the rank of the resulting matrices to 3, in order to obtain 3D coordinates, so we use the 3 first columns of $U$, the 3 first rows of $V^T$ and the top-left $3\times 3$ matrix of $W$ to obtain $U_3, W_3,$ and $V^T_3$. Lastly, the matrix \& shape functions are given by: $M = U_3W^{\frac{1}{2}}_3$, $S = W_3^{\frac{1}{2}}V^T_3$
 
-
+\subsection{Dealing with affine ambiguity}
+The process described before, implies a decomposition that is subject to affine transformation~\cite{amb}. Taking that into account, we further factorize matrices $M\rightarrow \hat{M}$ \& $S\rightarrow \hat{S}$ according to Morita and Kanade (1997)\cite{amb}. In more detail, we calculate matrix $A^{-1}$ and $A$ where $A$ represents an affine transform that transforms $\hat{M}$ into $M$ and $A^{-1}$ transforms $\hat{S}$ into $S$. Applying these matrix manipulations erases the affine ambiguity, under the assumption that image axes must be perpendicular\cite{amb}.
 
 \subsection{Results}
 
@@ -26,8 +27,11 @@ On the other hand, the house frameset does not contain such steep change in poin
 
 \section{Printable 3D Model}
 
-\subsection{Implementation}
+\subsection{PCL (C++)}
 In order to build a printable 3D model given a point cloud, we used the Point Cloud Library (PCL)\cite{pcl}. PCL has built-in functions in order to read and visualize a 3D point cloud using triangulation. 
+
+\subsection{MyCrust (MATLAB)}
+In order to visualize a 3D point cloud in MATLAB, we used the "myCrust.m" toolbox\cite{myc}. The functions it supplies construct a triangular mesh given a point cloud as input. In order to retrieve the data, we used the given readPcd() function, while we also used the MATLAB built-in function imfill() to create a watertight model. The latter function will "fill the holes" of every plane in the whole dataset. 
 
 Snapshots of the visualization are presented in the section below.
 \subsection{Results} 
