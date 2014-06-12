@@ -20,7 +20,7 @@ The process described before, implies a decomposition that is subject to affine 
 Looking at figures ~\ref{fig:icp4-11-Amb} and ~\ref{fig:icp4-11}, we can se that the latter has a slightly better structure, as far as the position and distance between feature points is concerned. 
 
 \subsection{Frame sampling}
-We have observed that many feature points are detected at non-informative positions, implying a noise factor in our SFM implementation. In order to reduce the noise, while also increasing the speed of the algorithm, we sampled though the frame set, by skipping 1, 2, 4, 5 or 8 frames. 
+We have observed that many feature points are detected at non-informative positions, implying a noise factor in our SFM implementation. In order to reduce the noise, while also increasing the speed of the algorithm, we sampled though the frame set, by skipping 1, 2, 4, 5 or 8 frames. In the results section we can see how this parameter changes the 3D structure, and conclusions on it are derived in the discussion section.
 
 
 \subsection{Results}
@@ -78,7 +78,7 @@ This last step of the SFM algorithm gave us the opportunity to observe the resul
 However, while experimenting with two different sets of frames (House \& Teddybear), we discovered that the teddybear frameset is not capable of producing an efficient 3D model, while the house frameset does. An explanation to why this happens lies not in the actual implementation of the algorithm, but the dataset itself. It is a fact that the teddybear frameset contains a 360 degree y-axis rotation of the object, resulting in significantly less feature points being persistent through a large number of frames. 
 On the other hand, the house frameset does not contain such steep change in point of view, but only a slight z-axis rotation. As a result, the number of feature points detected in all frames is higher, thus, the 3D model reconstructed by SFM looks more realistic.
 
-Furthermore, regarding the frame sampling we introduced, we can observe an improvement from figure ~\ref{fig:icp1-46-Amb} to figure ~\ref{fig:icp4-11-Amb}, in terms of how realistic the structure looks. We can see that many new feature points are introduced, while in figure ~\ref{fig:icp4-11}, almost no noisy points are present.
+Furthermore, regarding the frame sampling feature introduced, we can observe an improvement between figure ~\ref{fig:icp1-46-Amb} and figure ~\ref{fig:icp4-11-Amb}, in terms of how realistic the structure looks. We can see that many new feature points are introduced, while in figure ~\ref{fig:icp4-11}, almost no noisy points are present.
 
 Despite the improvement achieved, we can observe in figures ~\ref{fig:icp5-8} and ~\ref{fig:icp8-5} that sparse sampling can lead to undesired results. The structure of the house is inconsistent, especially in figure ~\ref{fig:icp8-5} where only feature points on the house roof are detected in all sampled frames. 
 
