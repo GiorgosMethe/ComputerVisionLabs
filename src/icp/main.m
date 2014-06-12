@@ -7,9 +7,9 @@ clc
 addpath '../../data/icp/'
 addpath '/usr/local/share/flann/matlab'
 % search type: 0 brute, 1 unif sampling, 2 knn treesearch
-searchType = 1;
+searchType = 0;
 % frameSkip: how many frame it'll skip
-frameSkip = 4; % 1,2,4,10
+frameSkip = 10; % 1,2,4,10
 % merged:true -- Merge pointclouds to base and compare to target
 % merged:false -- Merge pointclouds to baseMerged and compare base to target all the time 
 merged = true; % true, false
