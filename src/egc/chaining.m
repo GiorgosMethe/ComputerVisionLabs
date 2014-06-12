@@ -68,10 +68,10 @@ for frame = 1:frameStep:size(frames,2)-frameStep;
     %% Chaining
     [pvm, pvmList] = getPvm(currAll, nextAll, maxInlierSet, pvm, pvmList);
     %% Display and visualization of inliers' set
-    disp(['inliers number is:', num2str(size(maxInlierSet,1))]);
-    disp('----');
+    disp(['inliers number is:', num2str(size(maxInlierSet,1))]);  
     % showMatches(currFrame, nextFrame, currAll, nextAll, maxInlierSet);
     toc
+    disp('----');
 end
 
 %% Show points - cameras figure

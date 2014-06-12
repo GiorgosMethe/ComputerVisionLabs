@@ -2,6 +2,11 @@ clear all
 close all
 clc
 
+matlabpool ('open',4);
+set = [1 2 4 10 1 2 4 10];
+me = [true false];
+
+parfor exp = 1:8
 %% ================== SETTINGS ========================
 % added filepath for flann library functions
 addpath '../../data/icp/'
@@ -9,12 +14,12 @@ addpath '/usr/local/share/flann/matlab'
 % search type: 0 brute, 1 unif sampling, 2 knn treesearch
 searchType = 1;
 % frameSkip: how many frame it'll skip
-frameSkip = 4; % 1,2,4,10
+frameSkip = set(exp); % 1,2,4,10
 % merged:true -- Merge pointclouds to base and compare to target
 % merged:false -- Merge pointclouds to baseMerged and compare base to target all the time 
-merged = true; % true, false
+merged = (exp <= 4); % true, false
 % Max iterations of icp
-maxIter = 50;
+maxIter = 100;
 %% ================= END SETTINGS=======================
 
 %% read arrays, clean Data
@@ -54,6 +59,10 @@ end
 % plot3(resultedPointCloud(1,:),resultedPointCloud(2,:),resultedPointCloud(3,:),'b.');
 % disp(['Done']);
 
-parsave(strcat('errors',num2str(set(exp)), '.mat'), errors);
-parsave(strcat('tr',num2str(set(exp)), '.mat'), tr);
-parsave(strcat('resultedPointCloud',num2str(set(exp)), '.mat'), resultedPointCloud);
+parsave(strcat('errors',num2str(set(exp)),'_',num2str(merged), '.mat'), errors);
+parsave(strcat('tr',num2str(set(exp)),'_',num2str(merged), '.mat'), tr);
+parsave(strcat('resultedPointCloud',num2str(set(exp)),'_',num2str(merged), '.mat'), resultedPointCloud);
+
+end
+
+matlabpool close;
