@@ -45,13 +45,13 @@
 
 
 
-\textbf{\textit{Abstract}- In this technical report we will present implementation details along with experimental results obtained for two separate classes of algorithms. We will discuss the Iterative Closest Point (ICP) algorithm and how variations in different elements of the implementation affect its performance. In addition, this report addresses the Structure from Motion algorithm. We will show how 3d structure of a scene can be obtained from 2d images depicting multiple views of the same scene.}
+\textbf{\textit{Abstract}- In this technical report we are presenting implementation details along with experimental results obtained for two separate classes of algorithms. We will discuss the Iterative Closest Point (ICP) algorithm and how variations in different parameters of the implementation affect its performance. In addition, this report addresses the Structure from Motion algorithm. We will show how 3D structure of a scene can be obtained from 2D images taken from multiple viewpoints.}
 
 
 \section{Introduction}
 \label{introduction}
-Iterative Closest Point (ICP) as first described in~\cite{icp} is an alignment algorithm used to iteratively estimating the closest points between two point clouds or surface meshes. Section~\ref{icp} provides the details of this procedure tested on a given dataset of point clouds representing a static human from different views. In addition, different modifications of the algorithm are analyzed in terms of aspects such as speed, accuracy, stability and tolerance to noise.
-Section~\ref{egc} and ~\ref{sfm} describe the Structure from Motion algorithm~\cite{egc}. SFM is a process for estimating shape and motion parameters of a 3d scene from 2d images depicting the scene from multiple views. In particular Section~\ref{egc} addresses the task of computing the intrinsic projective (epipolar) geometry between two views and obtaining the global camera poses by chaining pairwise these geometries, while in Section~\ref{sfm} the method for extracting the 3d structure of the scene is explained.
+Iterative Closest Point (ICP) as first described in~\cite{icp} is an alignment algorithm used to iteratively estimate the closest match between points in two point clouds or surface meshes. Section~\ref{icp} discusses the details of this procedure tested on a given dataset of point clouds representing a human, viewed from various camera positions. In addition, a variety of modifications of the algorithm are analyzed in terms of speed, accuracy, stability and tolerance to noise.
+Furthermore, section~\ref{egc} and ~\ref{sfm} describe the Structure from Motion algorithm (SFM)~\cite{egc}. SFM is a process of estimating shape and motion parameters of a 3D scene from 2D images depicting the scene from multiple views. In particular Section~\ref{egc} addresses the task of computing the intrinsic projective (epipolar) geometry between two views and obtaining the global camera poses by chaining the derived geometrical measurements pairwise, while in Section~\ref{sfm} the method of extracting 3D structure of the scene given the chaining results, is explained.
 
 
 
