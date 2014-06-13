@@ -16,7 +16,8 @@ main (int argc, char **argv)
     PointCloud<PointXYZ>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZ>);
 
     cloud->resize(cloud_rgb->size());
-    for (size_t i = 0; i < cloud_rgb->points.size(); i++) {
+    for (size_t i = 0; i < cloud_rgb->points.size(); i++)
+    {
         cloud->points[i].x = cloud_rgb->points[i].x;
         cloud->points[i].y = cloud_rgb->points[i].y;
         cloud->points[i].z = cloud_rgb->points[i].z;
@@ -24,6 +25,7 @@ main (int argc, char **argv)
 
     std::cout << cloud->size() << std::endl;
     MovingLeastSquares<PointXYZ, PointXYZ> mls;
+
  mls.setInputCloud (cloud);
  mls.setSearchRadius (0.01);
  mls.setPolynomialFit (true);
@@ -58,7 +60,6 @@ Poisson<PointNormal> poisson;
 (cloud_smoothed_normals);
  PolygonMesh mesh;
  poisson.reconstruct (mesh);
-
 
  io::saveVTKFile ("a.ply", mesh);
 
