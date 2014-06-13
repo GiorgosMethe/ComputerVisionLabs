@@ -11,7 +11,7 @@ addpath('../../data/TeddyBear/');
 addpath('../../data/House/');
 addpath('pvms');
 
-[ pvm , pvmList ] = chaining('TeddyBear',1, 1000, 1.0);
+[ pvm , pvmList ] = chaining('TeddyBear',1, 500, 1.0);
 save('pvm.mat','pvm')
 save('pvmList.mat','pvmList')
 
@@ -19,10 +19,10 @@ load('pvm.mat')
 load('pvmList.mat')
 
 pvmListImg = mat2gray(pvmList, [0 1]);
-pvmListImg = imresize(pvmListImg, [10000 size(pvmList,2)]);
+pvmListImg = imresize(pvmListImg, [3000 size(pvmList,2)]);
+figure()
+imshow(pvmListImg);
 
-% figure()
-% imshow(pvmListImg);
 % title('House DataSet')
 
 %Construct matrix D for sfm

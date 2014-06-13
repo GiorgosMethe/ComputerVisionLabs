@@ -8,7 +8,7 @@ frameList = frameList(~[frameList.isdir]);
 %% Load images
 tic
 disp('Loading images...')
-for i = 1:frameStep:size(frameList,1);
+for i = 1:6;
     img = imread(frameList(i).name);
     if size(img,3) == 3
         img = rgb2gray(img);
@@ -26,7 +26,7 @@ disp('Finish extracting foreground...')
 
 tic
 disp('Extracting sift features...')
-for frame=1:frameStep:size(frameList,1);
+for frame=1:6;
     disp([num2str(frame) ,'/', num2str(size(frameList,1))]);
     %% take the image
     currFrame = Im(:,:,frame);
@@ -51,7 +51,7 @@ toc
 pvm = [];
 pvmList = [];
 frames = [ 1:size(frameList,1), 1];
-for frame = 1:frameStep:size(frames,2)-frameStep;
+for frame = 1:5;
     disp(['Frames: ', num2str(frames(frame)), '-->', num2str(frames(frame+frameStep))]);
     tic
     fcurr = sift(frames(frame)).f;
@@ -77,8 +77,7 @@ end
 
 %% Show points - cameras figure
 pvmListImg = mat2gray(pvmList, [0 1]);
-pvmListImg = imresize(pvmListImg, [800 size(pvmList,2)]);
-
+pvmListImg = imresize(pvmListImg, [10000 size(pvmList,2)]);
 figure()
 imshow(pvmListImg);
 
