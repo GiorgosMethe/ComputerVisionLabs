@@ -1,0 +1,9 @@
+to run the pcl poisson reconstruction of a point cloud run:
+mkdir build
+cd build
+cmake ..
+make
+
+./watertight input.pcd
+
+The resulted polygon mesh will be written in result.ply which can be visualized in Paraview

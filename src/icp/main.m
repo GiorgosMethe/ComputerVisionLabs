@@ -47,8 +47,7 @@ if (merged == false)
 else
     resultedPointCloud = base;
 end
-% figure()
-% bar(errors)
+
 %% Visualize pointcloud
 % figure()
 % plot3(resultedPointCloud(1,:),resultedPointCloud(2,:),resultedPointCloud(3,:),'b.');

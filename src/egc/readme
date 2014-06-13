@@ -1,0 +1,12 @@
+To run the second assignment which includes epipolar geometry and chaining 
+run in Matlab: chaining with arguments:
+
+chaining(frames_dir, frameStep, ransacMaxIter, ransacThres)
+
+frames_dir : the directory that includes the consequtive frames.
+
+frameStep : How many skipped frames between each iteration, 1 is all frames
+
+ransacMaxIter : maximum number of iteration ransac will do
+
+ransacThres : Cholesky distance to determine inliers and outliers

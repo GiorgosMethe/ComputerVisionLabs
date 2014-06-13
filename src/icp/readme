@@ -1,0 +1,3 @@
+To run the code for the icp algorithm you should include at the beggining of the main.m 
+the directories of flann library for matlab and the directory of the pointclouds.
+All the other settings can be changed in the main.m file where are also described.

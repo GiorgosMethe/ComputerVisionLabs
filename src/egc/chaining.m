@@ -32,7 +32,6 @@ for frame=1:6;
     currFrame = Im(:,:,frame);
     %% Compute Sift
     [fcurr, dcurr] = vl_sift(currFrame,'edgethresh', 30, 'Levels', 30);
-%         [fcurr, dcurr] = vl_sift(currFrame);
     %% Filter matches
     [fcurr, dcurr] = getForegroundPoints(fcurr, dcurr, foreground);
     %% Normalize data
@@ -70,7 +69,7 @@ for frame = 1:5;
     [pvm, pvmList] = getPvm(currAll, nextAll, maxInlierSet, pvm, pvmList);
     %% Display and visualization of inliers' set
     disp(['inliers number is:', num2str(size(maxInlierSet,1))]);
-%     showMatches(Im(:,:,frame), Im(:,:,frame+frameStep), currAll, nextAll, maxInlierSet);
+    %showMatches(Im(:,:,frame), Im(:,:,frame+frameStep), currAll, nextAll, maxInlierSet);
     toc
     disp('----');
 end

@@ -10,8 +10,7 @@ int
 main (int argc, char **argv)
 {
     pcl::PointCloud<pcl::PointXYZRGBA>::Ptr cloud_rgb (new pcl::PointCloud<pcl::PointXYZRGBA>);
-    pcl::io::loadPCDFile ("../../data/johan_sundin.pcd", *cloud_rgb);
-    std::cout << cloud_rgb->size() << std::endl;
+    pcl::io::loadPCDFile (argv[1], *cloud_rgb);
 
     PointCloud<PointXYZ>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZ>);
 
@@ -23,7 +22,6 @@ main (int argc, char **argv)
         cloud->points[i].z = cloud_rgb->points[i].z;
     }
 
-    std::cout << cloud->size() << std::endl;
     MovingLeastSquares<PointXYZ, PointXYZ> mls;
 
  mls.setInputCloud (cloud);
@@ -61,8 +59,7 @@ Poisson<PointNormal> poisson;
  PolygonMesh mesh;
  poisson.reconstruct (mesh);
 
- io::saveVTKFile ("a.ply", mesh);
+ io::saveVTKFile ("result.ply", mesh);
 
-    std::cout << "4" << std::endl;
     return 0;
 }

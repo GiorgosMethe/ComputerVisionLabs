@@ -1,5 +1,5 @@
 clear all
-%close all
+close all
 clc
 % Warnings off
 warning('off','all');
@@ -12,31 +12,15 @@ addpath('../../data/House/');
 addpath('pvms');
 
 [ pvm , pvmList ] = chaining('TeddyBear',1, 200, 4.0);
-save('pvm.mat','pvm')
-save('pvmList.mat','pvmList')
-
-%load mat file for teddy bear
-load('pvmList.mat');
-load('pvm.mat');
-
-pvmListImg = mat2gray(pvmList, [0 1]);
-pvmListImg = imresize(pvmListImg, [3000 size(pvmList,2)]);
-figure()
-imshow(pvmListImg);
-
-% title('House DataSet')
 
 %Construct matrix D for sfm
 D = constructD(pvmList, pvm);
 a = sum(pvmList,1);
+% Value to be changed in respect to the number of frames and how many frames we skip
+% Should be the same as the number of frames.
 indexes = find(a > 3);
 D = pvm(:,indexes);
 [M, S] = sfm(D);
 
 figure
 plot3(S(1,:),S(2,:),S(3,:),'b.', 'markersize', 10);
-
-D = load('D.txt');
-[M, S] = sfm(D);
-figure
-plot3(S(1,:),S(2,:),S(3,:),'r.');

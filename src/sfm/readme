@@ -1,0 +1,2 @@
+To run sfm algorithm you should run main.m file.
+Be sure the path for vl_feat is correct and the number of consequtive frames is correct for each dataset, you can change this value in line:21.
