@@ -1,7 +1,7 @@
 \section{Iterative Closest Point}
 \label{icp}
 
-Iterative closest point algorithm (ICP)~\cite{icpOr}, as the name suggests, is a method of reconstructing surfaces of 3D point clouds. The main steps of this method are, first  finding the closest points between a base surface and a target one, and secondly computing the rotation and translation of the target surface with respect to the base one. This process continues iteratively until a mean square distance metric does not change any more.
+Iterative closest point algorithm (ICP)~\cite{icpOr}, as the name suggests, is a method of registering surfaces and 3D point clouds. The main steps of this method are, first  finding the closest points between a base surface and a target one, and secondly computing the rotation and translation of the target surface with respect to the base one. This process continues iteratively until a mean square distance metric does not change any more.
 
 The rotation and translation of a three dimensional surface have six degrees of freedom, which the algorithm is guaranteed to converge to a local optimum every time. What is more, two major aspects regarding the performance as well as the convergence of the algorithm are the selection of the points from the base surface and the search method for the closest ones to the target surface. A good selection policy of the points can lead to an optimal registration of the surfaces and a very efficient performance computationally-wise.
 
