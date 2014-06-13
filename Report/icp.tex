@@ -24,12 +24,16 @@ Another important aspect of the algorithm is the way the merging of the two poin
 %ADD RESULTED POINT CLOUDS
 
 
+
 \subsection{Discussing the ICP algorithm}
 Using the estimated camera poses, merge the point-clouds of all the scenes into one point-cloud and visualize the result. Does the merging produce sufficient result? Discuss why. Now, estimate the camera pose and merge the results using every 2 nd , 4 th , and 10 th frames. Does the camera pose estimation change?
 
+
+
+
 So the estimated camera poses change in comparison with the previous estimates (Sec- tion 2.1)? Does this estimation produce better results?
 
-Even though ICP algorithm produces sufficient results for surface registration it still suffers when it comes to its complexity which makes it intractable even for today's computer systems. The techniques presented earlier in this section improve its complexity without harming the performance. Another issue it arises when it comes to the performance of the algorithm is the fact that the surfaces to be merged need to be close to each other so the merging will converge to a qualitative solution.
+Even though the ICP algorithm produces sufficient results for surface registration it still has major drawbacks when it comes to its computational cost which makes it really time demanding. The techniques presented earlier in this section improve its complexity without harming the performance. Another issue that arises when it comes to the performance of the algorithm is the fact that the surfaces to be merged need to be close to each other in terms of camera viewpoint, so the merging will converge to a quality solution.
 
 2. How do you think the ICP algorithm can be improved, beside the techniques mentioned in [2], in terms of efficiency and accuracy?
 
