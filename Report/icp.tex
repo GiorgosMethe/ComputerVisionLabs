@@ -23,7 +23,20 @@ Another important aspect of the algorithm is the way the merging of the two poin
 %ADD ERROR FIGURES
 %ADD RESULTED POINT CLOUDS
 
+\begin{figure*}[ht!]
+  \centering
+    \includegraphics[width=0.98\textwidth]{figures/RMSunmergedKD.eps}
+    \caption{Printable triangular mesh, front view}
+    \label{fig:sundin-front-pcl}
+\end{figure*}
 
+
+\begin{figure*}[ht!]
+  \centering
+    \includegraphics[width=0.98\textwidth]{figures/RMSmergedKD.eps}
+    \caption{Printable triangular mesh, front view}
+    \label{fig:sundin-front-pcl}
+\end{figure*}
 
 \subsection{Discussing the ICP algorithm}
 Using the estimated camera poses, merge the point-clouds of all the scenes into one point-cloud and visualize the result. Does the merging produce sufficient result? Discuss why. Now, estimate the camera pose and merge the results using every 2 nd , 4 th , and 10 th frames. Does the camera pose estimation change?
