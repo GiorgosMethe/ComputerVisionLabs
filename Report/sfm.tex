@@ -97,13 +97,34 @@ Figure ~\ref{fig:sundin-pointcloud} represents a visualization of this point clo
 
 \subsection{PCL (C++)}
 In order to build a printable 3D model given a point cloud, we used the Point Cloud Library (PCL)\cite{pcl}. PCL has built-in functions in order to read and visualize a 3D point cloud using triangulation. It can also provide with functions to make the 3D structure watertight.
+We visualized the output using ParaView, see figures ~\ref{fig:sundin-back-pcl}, ~\ref{fig:sundin-front-pcl} and ~\ref{fig:sundin-top-pcl}.
 
 \subsection{MyCrust (MATLAB)}
 In order to visualize a 3D point cloud in MATLAB, we used the "myCrust.m" toolbox. The functions it supplies construct a triangular mesh given a point cloud as input. In order to retrieve the data, we used the given readPcd() function, while we also used the MATLAB built-in function imfill() to create a watertight model. The latter function will "fill the holes" of every plane in the whole dataset. 
 
-Snapshots of the visualization are presented in the section below.
+Snapshots of the visualization are presented in figures ~\ref{fig:sundin-bot-zoom}, ~\ref{fig:sundin-side-zoom} and ~\ref{fig:sundin-top-zoom}.
 \subsection{Results} 
 
+\begin{figure}[ht!]
+  \centering
+    \includegraphics[width=0.49\textwidth]{figures/sundinPCLback.png}
+    \caption{Printable triangular mesh, back view}
+    \label{fig:sundin-back-pcl}
+\end{figure}
+
+\begin{figure}[ht!]
+  \centering
+    \includegraphics[width=0.49\textwidth]{figures/sundinPCLtop.png}
+    \caption{Printable triangular mesh, top view}
+    \label{fig:sundin-top-pcl}
+\end{figure}
+
+\begin{figure}[ht!]
+  \centering
+    \includegraphics[width=0.49\textwidth]{figures/sundinPCLFront.png}
+    \caption{Printable triangular mesh, front view}
+    \label{fig:sundin-front-pcl}
+\end{figure}
 
 
 
@@ -118,12 +139,12 @@ Snapshots of the visualization are presented in the section below.
   \centering
     \includegraphics[width=0.49\textwidth]		{figures/3dMesh_sundin_zoom_side.png}
     \caption{Printable triangular mesh, side view}
-    \label{fig:sundin-top-zoom}
+    \label{fig:sundin-side-zoom}
 \end{figure}
 
 \begin{figure}[ht!]
   \centering
     \includegraphics[width=0.49\textwidth]{figures/3dMesh_sundin_zoom_bot.png}
     \caption{Printable triangular mesh, bot view}
-    \label{fig:sundin-top-zoom}
+    \label{fig:sundin-bot-zoom}
 \end{figure}
