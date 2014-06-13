@@ -11,9 +11,9 @@ addpath('../../data/TeddyBear/');
 addpath('../../data/House/');
 addpath('pvms');
 
-[ pvm , pvmList ] = chaining('TeddyBear',1, 200, 4.0);
-save('pvm.mat','pvm')
-save('pvmList.mat','pvmList')
+%[ pvm , pvmList ] = chaining('TeddyBear',1, 200, 4.0);
+%save('pvm.mat','pvm')
+%save('pvmList.mat','pvmList')
 
 %load mat file for teddy bear
 load('pvmList.mat');
@@ -29,7 +29,7 @@ imshow(pvmListImg);
 %Construct matrix D for sfm
 D = constructD(pvmList, pvm);
 a = sum(pvmList,1);
-indexes = find(a > 3);
+indexes = find(a > 1);
 D = pvm(:,indexes);
 [M, S] = sfm(D);
 

@@ -15,7 +15,7 @@ An important step of the algorithm is to identify local features in each image w
     \label{fig:houseBackground}
 \end{figure}
 
-By finding feature points in every frame we are able to identify matches in consecutive frames. This is done by using the built-in function vl\_ ucbmatch of the vlFeat library of MATLAB which returns the qualitative corresponding feature points and rejects the ambiguous ones. The vl\_ sift command without parameter tuning gives only a limited number of feature points as illustrated on the first image of figure~\ref{fig:matches}. By setting a higher edge threshold which serves to filter out edge-like features we were able to obtain more key points. Another parameter we tuned was the number of levels per octave. By increasing this number in principle it returns more refined keypoints, but in practice the selection may be unstable due to noise. Feature matches between two consecutive frames of the House dataset with tuned parameters, are displayed on the second image of figure~\ref{fig:matches}.
+By finding feature points in every frame we are able to identify matches in consecutive frames. This is done by using the built-in function vl\_ ucbmatch of the vlFeat library of MATLAB which returns the desired corresponding feature points and rejects the ambiguous ones. The vl\_ sift command without parameter tuning gives only a limited number of feature points as illustrated on the first image of figure~\ref{fig:matches}. By setting a higher edge threshold which serves to filter out edge-like features we were able to obtain more key points. Another parameter we tuned was the number of levels per octave. By increasing this number in principle it returns more refined keypoints, but in practice the selection may be unstable due to noise. Feature matches between two consecutive frames of the House dataset with tuned parameters, are displayed on the second image of figure~\ref{fig:matches}.
 
 \begin{figure}[ht!]
   \centering
@@ -36,18 +36,22 @@ To estimate the fundamental matrix deriving from the corresponding image points 
 \begin{enumerate}[1]
   \item Pick 8 random matches from the list of the corresponding points.
   \item Construct a matrix A from the matches and get the transformation matrix from the last column of V of the Singular Value Decomposition of A.
-  \item Count the number of inliers (points that agree with the transformation matrix) by computing the Sampson distance (if distance is smaller than a certain threshold then we consider the point as an inlier)
+  \item Count the number of inliers (points that agree with the transformation matrix) by computing the Sampson distance (if distance is smaller than a certain threshold then we consider the point as an inlier). By experimenting with different threshold values, we concluded to 0.5 being the most efficient.
   \item Repeat steps 1 to 3 until the majority of the points are inliers.
 \end{enumerate}
 
 
 \subsection{Chaining}
-The last step is to construct the Point View Matrix which contains normalized point coordinates (inliers). Actually it is not always the case that many points are present in all frames due to the fact that the frames may have considerably large difference in view among them. In figure~\ref{fig:pointMatching} the feature point view matrices for the house and teddy-bear datasets are illustrated. We can see that the teddy-bear dataset produces a vastly more sparse point view matrix compared to the one the house dataset produces. These point view matrices will be used in the $2^{nd}$ part of the SFM implementation, in order to build a 3D structure of these two objects.
+The last step is to construct the Point View Matrix which contains normalized point coordinates (inliers). An $m \times n$ matrix is initialized, where m is the number of frames and n is the total number of feature points. For every point (column) a $1$ is added to the matrix's cell if this feature point is present in frame (row) n, else it remains $0$.
+
+\subsection{Discussion}
+In fact, it is not always the case that many points will be present in all frames due to the fact that the frames may have considerably large difference in view among them. In figure~\ref{fig:pointMatching} the feature point view matrices for the house and teddy-bear datasets are illustrated. We can see that the teddy-bear dataset produces a vastly more sparse point view matrix compared to the one the house dataset produces. In particular, no points are consistent through the whole teddy bear frame set. These point view matrices will be used in the $2^{nd}$ part of the SFM implementation, in order to build a 3D structure of these two objects.
 
 \begin{figure}[ht!]
   \centering
-    \includegraphics[width=0.50\textwidth]{figures/pvmList.eps}
-    \caption{Point view matrix sequences, Horizontal axis denotes detected feature points, vertical axis are the frames. Lines starting from the top going to the bottom of the picture represent points detected in consecutive frames.}
+    \includegraphics[width=0.50\textwidth]{figures/pvmList.eps}\\
+    \includegraphics[width=0.50\textwidth]{figures/teddypvm.png}
+    \caption{Point view matrix sequences, Horizontal axis denotes detected feature points, vertical axis are the frames. Lines starting from the top going to the bottom of the picture represent points detected in consecutive frames. From top to bottom: a) house dataset, b) teddybear dataset. Note that these Point View matrices result from 3-frame skipping (see 4.3)}
     \label{fig:pointMatching}
 \end{figure}
 
