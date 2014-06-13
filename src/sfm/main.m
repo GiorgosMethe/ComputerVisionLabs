@@ -1,5 +1,5 @@
 clear all
-close all
+%close all
 clc
 % Warnings off
 warning('off','all');
@@ -19,10 +19,11 @@ load('pvm.mat')
 load('pvmList.mat')
 
 pvmListImg = mat2gray(pvmList, [0 1]);
-pvmListImg = imresize(pvmListImg, [800 size(pvmList,2)]);
+pvmListImg = imresize(pvmListImg, [10000 size(pvmList,2)]);
 
-figure()
-imshow(pvmListImg);
+% figure()
+% imshow(pvmListImg);
+% title('House DataSet')
 
 %Construct matrix D for sfm
 D = constructD(pvmList, pvm);

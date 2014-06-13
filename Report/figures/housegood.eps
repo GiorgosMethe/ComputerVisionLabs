@@ -1,0 +1,1488 @@
+%!PS-Adobe-3.0 EPSF-3.0
+%%Creator: MATLAB, The MathWorks, Inc. Version 8.1.0.604 (R2013a). Operating System: Linux 3.14.5-200.fc20.x86_64 #1 SMP Mon Jun 2 14:26:34 UTC 2014 x86_64.
+%%Title: /home/Methe/Dropbox/ComputerVisionLabs/housegood.eps
+%%CreationDate: 06/13/2014  20:04:11
+%%DocumentNeededFonts: Helvetica
+%%DocumentProcessColors: Cyan Magenta Yellow Black
+%%LanguageLevel: 2
+%%Pages: 1
+%%BoundingBox:    81   227   529   564
+%%EndComments
+
+%%BeginProlog
+% MathWorks dictionary
+/MathWorks 160 dict begin
+% definition operators
+/bdef {bind def} bind def
+/ldef {load def} bind def
+/xdef {exch def} bdef
+/xstore {exch store} bdef
+% operator abbreviations
+/c  /clip ldef
+/cc /concat ldef
+/cp /closepath ldef
+/gr /grestore ldef
+/gs /gsave ldef
+/mt /moveto ldef
+/np /newpath ldef
+/cm /currentmatrix ldef
+/sm /setmatrix ldef
+/rm /rmoveto ldef
+/rl /rlineto ldef
+/s {show newpath} bdef
+/sc {setcmykcolor} bdef
+/sr /setrgbcolor ldef
+/sg /setgray ldef
+/w /setlinewidth ldef
+/j /setlinejoin ldef
+/cap /setlinecap ldef
+/rc {rectclip} bdef
+/rf {rectfill} bdef
+% page state control
+/pgsv () def
+/bpage {/pgsv save def} bdef
+/epage {pgsv restore} bdef
+/bplot /gsave ldef
+/eplot {stroke grestore} bdef
+% orientation switch
+/portraitMode 0 def /landscapeMode 1 def /rotateMode 2 def
+% coordinate system mappings
+/dpi2point 0 def
+% font control
+/FontSize 0 def
+/FMS {/FontSize xstore findfont [FontSize 0 0 FontSize neg 0 0]
+  makefont setfont} bdef
+/reencode {exch dup where {pop load} {pop StandardEncoding} ifelse
+  exch dup 3 1 roll findfont dup length dict begin
+  { 1 index /FID ne {def}{pop pop} ifelse } forall
+  /Encoding exch def currentdict end definefont pop} bdef
+/isroman {findfont /CharStrings get /Agrave known} bdef
+/FMSR {3 1 roll 1 index dup isroman {reencode} {pop pop} ifelse
+  exch FMS} bdef
+/csm {1 dpi2point div -1 dpi2point div scale neg translate
+ dup landscapeMode eq {pop -90 rotate}
+  {rotateMode eq {90 rotate} if} ifelse} bdef
+% line types: solid, dotted, dashed, dotdash
+/SO { [] 0 setdash } bdef
+/DO { [.5 dpi2point mul 4 dpi2point mul] 0 setdash } bdef
+/DA { [6 dpi2point mul] 0 setdash } bdef
+/DD { [.5 dpi2point mul 4 dpi2point mul 6 dpi2point mul 4
+  dpi2point mul] 0 setdash } bdef
+% macros for lines and objects
+/L {lineto stroke} bdef
+/MP {3 1 roll moveto 1 sub {rlineto} repeat} bdef
+/AP {{rlineto} repeat} bdef
+/PDlw -1 def
+/W {/PDlw currentlinewidth def setlinewidth} def
+/PP {closepath eofill} bdef
+/DP {closepath stroke} bdef
+/MR {4 -2 roll moveto dup  0 exch rlineto exch 0 rlineto
+  neg 0 exch rlineto closepath} bdef
+/FR {MR stroke} bdef
+/PR {MR fill} bdef
+/L1i {{currentfile picstr readhexstring pop} image} bdef
+/tMatrix matrix def
+/MakeOval {newpath tMatrix currentmatrix pop translate scale
+0 0 1 0 360 arc tMatrix setmatrix} bdef
+/FO {MakeOval stroke} bdef
+/PO {MakeOval fill} bdef
+/PD {currentlinewidth 2 div 0 360 arc fill
+   PDlw -1 eq not {PDlw w /PDlw -1 def} if} def
+/FA {newpath tMatrix currentmatrix pop translate scale
+  0 0 1 5 -2 roll arc tMatrix setmatrix stroke} bdef
+/PA {newpath tMatrix currentmatrix pop	translate 0 0 moveto scale
+  0 0 1 5 -2 roll arc closepath tMatrix setmatrix fill} bdef
+/FAn {newpath tMatrix currentmatrix pop translate scale
+  0 0 1 5 -2 roll arcn tMatrix setmatrix stroke} bdef
+/PAn {newpath tMatrix currentmatrix pop translate 0 0 moveto scale
+  0 0 1 5 -2 roll arcn closepath tMatrix setmatrix fill} bdef
+/vradius 0 def /hradius 0 def /lry 0 def
+/lrx 0 def /uly 0 def /ulx 0 def /rad 0 def
+/MRR {/vradius xdef /hradius xdef /lry xdef /lrx xdef /uly xdef
+  /ulx xdef newpath tMatrix currentmatrix pop ulx hradius add uly
+  vradius add translate hradius vradius scale 0 0 1 180 270 arc 
+  tMatrix setmatrix lrx hradius sub uly vradius add translate
+  hradius vradius scale 0 0 1 270 360 arc tMatrix setmatrix
+  lrx hradius sub lry vradius sub translate hradius vradius scale
+  0 0 1 0 90 arc tMatrix setmatrix ulx hradius add lry vradius sub
+  translate hradius vradius scale 0 0 1 90 180 arc tMatrix setmatrix
+  closepath} bdef
+/FRR {MRR stroke } bdef
+/PRR {MRR fill } bdef
+/MlrRR {/lry xdef /lrx xdef /uly xdef /ulx xdef /rad lry uly sub 2 div def
+  newpath tMatrix currentmatrix pop ulx rad add uly rad add translate
+  rad rad scale 0 0 1 90 270 arc tMatrix setmatrix lrx rad sub lry rad
+  sub translate rad rad scale 0 0 1 270 90 arc tMatrix setmatrix
+  closepath} bdef
+/FlrRR {MlrRR stroke } bdef
+/PlrRR {MlrRR fill } bdef
+/MtbRR {/lry xdef /lrx xdef /uly xdef /ulx xdef /rad lrx ulx sub 2 div def
+  newpath tMatrix currentmatrix pop ulx rad add uly rad add translate
+  rad rad scale 0 0 1 180 360 arc tMatrix setmatrix lrx rad sub lry rad
+  sub translate rad rad scale 0 0 1 0 180 arc tMatrix setmatrix
+  closepath} bdef
+/FtbRR {MtbRR stroke } bdef
+/PtbRR {MtbRR fill } bdef
+/stri 6 array def /dtri 6 array def
+/smat 6 array def /dmat 6 array def
+/tmat1 6 array def /tmat2 6 array def /dif 3 array def
+/asub {/ind2 exch def /ind1 exch def dup dup
+  ind1 get exch ind2 get sub exch } bdef
+/tri_to_matrix {
+  2 0 asub 3 1 asub 4 0 asub 5 1 asub
+  dup 0 get exch 1 get 7 -1 roll astore } bdef
+/compute_transform {
+  dmat dtri tri_to_matrix tmat1 invertmatrix 
+  smat stri tri_to_matrix tmat2 concatmatrix } bdef
+/ds {stri astore pop} bdef
+/dt {dtri astore pop} bdef
+/db {2 copy /cols xdef /rows xdef mul dup 3 mul string
+  currentfile 
+  3 index 0 eq {/ASCIIHexDecode filter}
+  {/ASCII85Decode filter 3 index 2 eq {/RunLengthDecode filter} if }
+  ifelse exch readstring pop
+  dup 0 3 index getinterval /rbmap xdef
+  dup 2 index dup getinterval /gbmap xdef
+  1 index dup 2 mul exch getinterval /bbmap xdef pop pop}bdef
+/it {gs np dtri aload pop moveto lineto lineto cp c
+  cols rows 8 compute_transform 
+  rbmap gbmap bbmap true 3 colorimage gr}bdef
+/il {newpath moveto lineto stroke}bdef
+currentdict end def
+%%EndProlog
+
+%%BeginSetup
+MathWorks begin
+
+0 cap
+
+end
+%%EndSetup
+
+%%Page: 1 1
+%%BeginPageSetup
+%%PageBoundingBox:    81   227   529   564
+MathWorks begin
+bpage
+%%EndPageSetup
+
+%%BeginObject: obj1
+bplot
+
+/dpi2point 12 def
+portraitMode 0972 6768 csm
+
+    0     0  5376  4033 rc
+85 dict begin %Colortable dictionary
+/c0 { 0.000000 0.000000 0.000000 sr} bdef
+/c1 { 1.000000 1.000000 1.000000 sr} bdef
+/c2 { 0.900000 0.000000 0.000000 sr} bdef
+/c3 { 0.000000 0.820000 0.000000 sr} bdef
+/c4 { 0.000000 0.000000 0.800000 sr} bdef
+/c5 { 0.910000 0.820000 0.320000 sr} bdef
+/c6 { 1.000000 0.260000 0.820000 sr} bdef
+/c7 { 0.000000 0.820000 0.820000 sr} bdef
+c0
+1 j
+1 sg
+   0    0 5377 4034 rf
+6 w
+2470 -623 1696 906 -2469 623 3168 301 4 MP
+PP
+-1697 -906 2470 -623 1696 906 -2469 623 3168 301 5 MP stroke
+0 1758 -2470 623 0 -1759 4865 2966 4 MP
+PP
+2470 -622 0 1758 -2470 623 0 -1759 4865 2966 5 MP stroke
+0 1758 1696 906 0 -1759 699 2683 4 MP
+PP
+-1696 -905 0 1758 1696 906 0 -1759 699 2683 5 MP stroke
+4 w
+DO
+SO
+6 w
+0 sg
+ 699 2683 mt 2395 3588 L
+4865 2966 mt 2395 3588 L
+ 699 2683 mt  699  924 L
+ 699 2683 mt  637 2698 L
+%%IncludeResource: font Helvetica
+/Helvetica /ISOLatin1Encoding 120 FMSR
+
+ 400 2818 mt 
+(-15) s
+1038 2864 mt  976 2879 L
+ 740 2999 mt 
+(-10) s
+1377 3045 mt 1316 3061 L
+1146 3180 mt 
+(-5) s
+1717 3226 mt 1655 3242 L
+1555 3361 mt 
+(0) s
+2056 3407 mt 1994 3423 L
+1895 3542 mt 
+(5) s
+2395 3588 mt 2334 3604 L
+2167 3724 mt 
+(10) s
+4865 2966 mt 4921 2996 L
+4951 3123 mt 
+(-10) s
+4247 3122 mt 4303 3152 L
+4334 3279 mt 
+(-5) s
+3630 3277 mt 3686 3307 L
+3717 3435 mt 
+(0) s
+3013 3433 mt 3069 3463 L
+3099 3590 mt 
+(5) s
+2395 3588 mt 2452 3618 L
+2482 3746 mt 
+(10) s
+ 699 2683 mt  642 2653 L
+ 476 2681 mt 
+(-1) s
+ 699 2331 mt  642 2301 L
+ 546 2329 mt 
+(0) s
+ 699 1979 mt  642 1949 L
+ 546 1977 mt 
+(1) s
+ 699 1628 mt  642 1598 L
+ 546 1625 mt 
+(2) s
+ 699 1276 mt  642 1246 L
+ 546 1274 mt 
+(3) s
+ 699  924 mt  642  894 L
+ 546  922 mt 
+(4) s
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+/c8 { 0.000000 0.000000 1.000000 sr} bdef
+c8
+2956 2085 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2620 2161 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2096 2043 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+1660 1884 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+1812 1895 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2087 2016 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+1995 1990 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2379 2217 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2248 2051 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2595 2220 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3157 2277 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3298 2086 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3530 1861 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2434 2118 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2277 2059 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2452 2124 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2412 2125 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2414 2116 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2481 2153 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2645 2225 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2597 2189 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2611 2181 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2130 2037 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2274 2051 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2303 2100 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2459 2197 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2113 1982 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2164 2018 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2252 2078 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2445 2150 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2155 2006 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2307 2095 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2333 2100 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2360 2136 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2768 2293 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2584 2170 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3237 2184 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2833 2270 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2956 2352 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3021 2370 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2693 2224 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2457 2136 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2829 2291 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2761 2273 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2581 2210 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2978 1814 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3574 1944 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3375 2067 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3936 1525 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+4157 1318 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+4157 1311 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+4002 1560 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3645 1770 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+4031 1580 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3933 1704 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+4008 1569 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+4138 1445 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3914 1547 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3656 1757 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3847 1691 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3519 1869 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2810 2270 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+1890 1914 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+1931 1941 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+1955 1933 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2018 1955 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2032 1972 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2705 2245 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2306 2078 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3533 1993 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3784 1699 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2957 1805 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3929 1540 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+4062 1286 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+4060 1283 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3996 1567 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3818 1778 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3824 1731 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3571 1922 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3585 1963 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3599 1971 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3564 1955 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3666 1840 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3398 2126 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2720 2237 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3522 1950 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3503 1941 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2865 1801 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+4157 1438 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2196 2008 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2309 2102 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2314 2074 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2337 2071 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2373 2103 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2336 2099 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2378 2088 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3155 2297 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3529 2008 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3876 1590 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3817 1737 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2927 1789 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+4084 1524 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2789 2299 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2762 2302 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2807 2275 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2761 2251 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3322 2171 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2840 2288 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3240 2102 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3511 1882 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2903 1824 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3822 1717 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2866 1794 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3162 2251 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3244 2214 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3310 2145 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3171 2266 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2671 2223 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3534 1982 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2656 2238 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2303 1986 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2309 2074 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2190 2075 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2303 2080 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2318 2089 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+1994 1966 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2259 2066 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2460 2168 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2288 2093 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2840 2350 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2215 2050 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2209 2057 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2330 2084 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2162 2001 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2139 1990 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2098 2051 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2199 2088 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2365 2133 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2391 2158 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2005 2011 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2578 2208 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2476 2174 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2701 2238 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2472 2231 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3544 2054 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2146 2039 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2416 2158 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2719 2248 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2374 2163 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3934 1606 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3984 1525 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3817 1755 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3872 1699 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3304 2141 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3549 1979 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3316 2161 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3523 1850 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3311 2216 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3309 2177 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3175 2277 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2643 2198 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3311 2156 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2601 2180 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2686 2228 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2579 2224 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3729 1719 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2534 2179 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2376 2131 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2714 2240 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2329 2087 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2767 2256 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2280 2058 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2760 2244 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+1952 1960 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2714 2225 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2357 2082 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3586 1868 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3646 1765 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3294 2094 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+4235 1363 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+4241 1368 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3153 2309 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2559 2163 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3179 2302 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3251 2095 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3290 2099 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2609 2179 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3456 2050 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2486 2152 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2233 2045 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2149 2015 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2608 2201 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+1933 1950 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+1919 1951 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2002 1967 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2383 2133 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2084 1985 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2330 2085 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2066 1944 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+1800 1902 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2450 2153 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+1904 1927 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+1724 1856 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2357 2088 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2313 2081 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2649 2222 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3517 1924 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3165 2264 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2739 2263 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2768 2278 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3652 1912 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3576 1970 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3862 1728 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3931 1577 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+4297 1367 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+4133 1451 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3522 2014 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3465 2046 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3390 2108 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3380 2140 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3252 2096 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3243 2195 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+3181 2249 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2856 2323 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2837 2316 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2552 2179 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2417 2119 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2416 2171 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2384 2143 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2376 2150 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2366 2135 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2090 1979 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2063 1969 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2031 2017 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+2026 2016 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+1987 1992 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+1955 1946 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+1933 1938 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+1922 1938 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+1925 1946 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+1734 1871 PD
+gs 699 301 4167 3288 rc
+gr
+
+40 W
+1582 1871 PD
+gs 699 301 4167 3288 rc
+gr
+
+
+end %%Color Dict
+
+eplot
+%%EndObject
+
+epage
+end
+
+showpage
+
+%%Trailer
+%%EOF
