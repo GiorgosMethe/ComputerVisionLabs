@@ -42,12 +42,12 @@ To estimate the fundamental matrix deriving from the corresponding image points 
 
 
 \subsection{Chaining}
-The last step is to construct the Point View Matrix which contains normalized point coordinates (inliers). Actually it is not always the case that many points are present in all frames due to the fact that the frames may have considerably large difference in view among them. In figure~\ref{fig:pvm} the feature point view matrices for the house and teddy-bear datasets are illustrated. We can see that the teddy-bear dataset produces a vastly more sparse point view matrix compared to the one the house dataset produces. These point view matrices will be used in the $2^{nd}$ part of the SFM implementation, in order to build a 3D structure of these two objects.
+The last step is to construct the Point View Matrix which contains normalized point coordinates (inliers). Actually it is not always the case that many points are present in all frames due to the fact that the frames may have considerably large difference in view among them. In figure~\ref{fig:pointMatching} the feature point view matrices for the house and teddy-bear datasets are illustrated. We can see that the teddy-bear dataset produces a vastly more sparse point view matrix compared to the one the house dataset produces. These point view matrices will be used in the $2^{nd}$ part of the SFM implementation, in order to build a 3D structure of these two objects.
 
 \begin{figure}[ht!]
   \centering
-    \includegraphics[width=0.51\textwidth]{figures/pointMatching.eps}
-    \caption{Feature points extracted by the SIFT detector found on the object of interest}
+    \includegraphics[width=0.50\textwidth]{figures/pvmList.eps}
+    \caption{Point view matrix sequences, Horizontal axis denotes detected feature points, vertical axis are the frames. Lines starting from the top going to the bottom of the picture represent points detected in consecutive frames.}
     \label{fig:pointMatching}
 \end{figure}
 

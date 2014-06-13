@@ -4,7 +4,7 @@ clc
 % Warnings off
 warning('off','all');
 % run vl_setup, for vl functions
-run('../../lib/vlfeat-0.9.18/toolbox/vl_setup.m');
+run('../../lib/vlfeat-0.9.18/toolbox/vl_setup.m')
 
 addpath('../egc/');
 addpath('../../data/TeddyBear/');
@@ -15,8 +15,9 @@ addpath('pvms');
 save('pvm.mat','pvm')
 save('pvmList.mat','pvmList')
 
-load('pvm.mat')
-load('pvmList.mat')
+%load mat file for teddy bear
+ load('pvmList8.mat');
+ load('pvm8.mat');
 
 pvmListImg = mat2gray(pvmList, [0 1]);
 pvmListImg = imresize(pvmListImg, [3000 size(pvmList,2)]);
@@ -28,7 +29,7 @@ imshow(pvmListImg);
 %Construct matrix D for sfm
 D = constructD(pvmList, pvm);
 a = sum(pvmList,1);
-indexes = find(a > 15);
+indexes = find(a > 5);
 D = pvm(:,indexes);
 [M, S] = sfm(D);
 
