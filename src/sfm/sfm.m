@@ -9,8 +9,5 @@ V3 = V(:,1:3)';
 M = U3 * sqrt(W3);
 S = sqrt(W3) * V3;
 %% affine ambiguity solution
-
 [M,S] = noAmbiguity(M,S);
-
-
 end
