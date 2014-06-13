@@ -16,8 +16,8 @@ addpath('pvms');
 %save('pvmList8.mat','pvmList')
 
 %load mat file for teddy bear
- load('pvmList1.mat');
- load('pvm1.mat');
+ load('pvmList8.mat');
+ load('pvm8.mat');
 
 pvmListImg = mat2gray(pvmList, [0 1]);
 pvmListImg = imresize(pvmListImg, [10000 size(pvmList,2)]);
@@ -29,7 +29,7 @@ pvmListImg = imresize(pvmListImg, [10000 size(pvmList,2)]);
 %Construct matrix D for sfm
 D = constructD(pvmList, pvm);
 a = sum(pvmList,1);
-indexes = find(a > 46);
+indexes = find(a > 5);
 D = pvm(:,indexes);
 [M, S] = sfm(D);
 
