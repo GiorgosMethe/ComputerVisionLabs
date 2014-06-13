@@ -1,0 +1,5 @@
+---- Constructing the printable 3D model
+
+-Run 'printable3Dmodel.m'
+- .pcd (point cloud) file should be in the same directory
+- MyRobustCrust.m should be in the same directory
