@@ -1,40 +1,43 @@
 \section{Iterative Closest Point}
 \label{icp}
 
-Iterative closest point algorithm (ICP)~\cite{icpOr}, as the name suggests, is a method of registering surfaces and 3D point clouds. The main steps of this method are, first  finding the closest points between a base surface and a target one, and secondly computing the rotation and translation of the target surface with respect to the base one. This process continues iteratively until a mean square distance metric does not change any more.
+Iterative closest point algorithm (ICP), as the name suggests, is a method of registering surfaces and 3D point clouds. The main steps of this method are, first finding the closest points between a base surface and a target one, and secondly computing the rotation and translation of the target surface with respect to the base one. This process continues iteratively until a mean square distance metric does not change any more.
 
 The rotation and translation of a three dimensional surface have six degrees of freedom, which the algorithm is guaranteed to converge to a local optimum every time. What is more, two major aspects regarding the performance as well as the convergence of the algorithm are the selection of the points from the base surface and the search method for the closest ones to the target surface. A good selection policy of the points can lead to an optimal registration of the surfaces and a very efficient performance computationally-wise.
 
-\begin{figure*}[ht!]
+\begin{figure}[bt!]
   \centering
-    \includegraphics[width=0.98\textwidth]{figures/RMSmergedKD.eps}
+    \includegraphics[width=0.48\textwidth]{figures/comparison.eps}
+    \caption{RMS error comparison between KD-tree implementation and the uniform sampling.}
+    \label{fig:comparison}
+\end{figure}
+
+\begin{figure}[t!]
+  \centering
+    \includegraphics[width=0.48\textwidth]{figures/RMSmergedKD.eps}
     \caption{Average relative RMS error metric for merged kd-tree implementation for frame-step $1,2,4,10$.}
     \label{fig:rmsmergederror}
-\end{figure*}
+\end{figure}
 
-\begin{figure*}[ht!]
+\begin{figure}[t!]
   \centering
-    \includegraphics[width=0.98\textwidth]{figures/RMSunmergedKD.eps}
+    \includegraphics[width=0.48\textwidth]{figures/RMSunmergedKD.eps}
     \caption{Average relative RMS error metric for kd-tree implementation without merging for frame-step $1,2,4,10$.}
     \label{fig:rmsunmergederror}
-\end{figure*}
+\end{figure}
 
-A few variants have been applied~\cite{icpVar} on the ICP algorithm, in which performance improvements resulted from different techniques for, closest point selection, point rejection and error metric variations. For point selection instead of using all available points, a uniform sub-sampling or random sampling among them can lead to faster detection of the closest points. Also, selecting points from more informative regions of the surfaces can lead to better performance since more points are needed if the gradients of the surface are of higher value. As far as matching points are concerned, we can use a few variants apart from searching the whole space of the target surface. A projection of each point in the reference surface to the target one can give us an accurate estimation about where the closest point lies. Also color and angle measurements between surfaces can give us useful information about where to find these points.
+A few variants have been applied on the ICP algorithm, in which performance improvements resulted from different techniques for, closest point selection, point rejection and error metric variations. For point selection instead of using all available points, a uniform sub-sampling or random sampling among them can lead to faster detection of the closest points. Also, selecting points from more informative regions of the surfaces can lead to better performance since more points are needed if the gradients of the surface are of higher value. As far as matching points are concerned, we can use a few variants apart from searching the whole space of the target surface. A projection of each point in the reference surface to the target one can give us an accurate estimation about where the closest point lies. Also color and angle measurements between surfaces can give us useful information about where to find these points.
 
-\subsection{Dataset}
-Our dataset consists of $100$ 3D point clouds that represent surfaces deriving from multiple views of a human body. Figure~\ref{fig:dataset.eps} pictures the point cloud surface.
-
-
+\subsection*{Dataset}
+Our dataset consists of $100$ 3D point clouds that represent surfaces deriving from multiple views of a human body. 
 
 \subsection{Implementation}
 % ADD SOME EQUATIONS HERE
-In order to implement our algorithm we followed the work done in ``Implementation of a 3D ICP-based Scan Matches''~\cite{icpImp}. The first and most computationally expensive step of the algorithm is to find for each point of the target cloud the closest point there is in the base one. After doing this we end up having two sets of points with size equal to the target cloud's size. These point clouds need to be centered so we can eliminate any translation the target point cloud might have. Thus, we normalize the base and target cloud's closest point sets subtracting their centers from each of their points. Applying singular value decomposition to the two normalized clouds helps us estimate the rotation of the target cloud with respect to the base. This process continues recomputing the closest points of each cloud and re-transforming the target cloud until the error is minimized.
+In order to implement our algorithm we followed the work done in ``Implementation of a 3D ICP-based Scan Matches''. The first and most computationally expensive step of the algorithm is to find for each point of the target cloud the closest point there is in the base one. After doing this we end up having two sets of points with size equal to the target cloud's size. These point clouds need to be centered so we can eliminate any translation the target point cloud might have. Thus, we normalize the base and target cloud's closest point sets subtracting their centers from each of their points. Applying singular value decomposition to the two normalized clouds helps us estimate the rotation of the target cloud with respect to the base. This process continues recomputing the closest points of each cloud and re-transforming the target cloud until the error is minimized.
 
 Given the rotation, we transform the center of the target cloud by multiplying the homogeneous coordinates of it with the estimated rotation matrix subtracting it from the base cloud's center point. The resulting 3D point will serve as the translation of the target cloud with respect to the base one. Applying the estimated translation and rotation transformation onto the target cloud we acquire the new target cloud from which we can now compute the average euclidean distance from the base cloud. This process runs iteratively until the average euclidean distance is minimized.
 
 Another important aspect of the algorithm is the way the merging of the two point clouds is done. There are two methods applied, the first is to merge the two point clouds as one and consider it as the base cloud comparing it with the next frame, and the second one is to store the merged point cloud and proceed considering the target cloud of the first iteration as the base cloud of the second.
-
-
 
 \begin{figure*}[bt!]
   \centering
@@ -47,20 +50,21 @@ Another important aspect of the algorithm is the way the merging of the two poin
 \end{figure*}
 
 \subsection{Results}
+We applied three different techniques for closest point selection including KD-tree, uniform sampling and brute force. Brute force searches all the points of the base for each of the target. KD-tree stores all elements of the base cloud in a KD-tree and then minimizes the complexity of finding the closest point of each target point. Uniform sampling searches the closest points of a constant number of target points using brute force again. A comparison in the error of uniform sampling and KD-tree implementation is presented in figure~\ref{fig:comparison}. In this figure we can see the average RMS error when we merge every tenth frame with the base, without merging the result in the base cloud each time.
 
+To check also how the number of frames we skip influence the performance of the algorithm we also conducted an experiment using the KD-tree implementation for every $1,2,4,10$ frames. As we expected the error appears to be larger as we skip more frames. This result is illustrated in figure~\ref{fig:rmsmergederror} when we merge the target cloud to the base cloud in each frame. For the implementation without the merging the same results are presented in figure~\ref{fig:rmsunmergederror}.
 
+The resulted merged surfaces are depicted in figure~\ref{fig:mergedICP}. There we can see the merged point clouds that represent the connected point clouds thought the sequence of frames in the database. The results clearly show that the final point cloud is actually the human was scanned.
 
 
 \subsection{Discussing the ICP algorithm}
-Using the estimated camera poses, merge the point-clouds of all the scenes into one point-cloud and visualize the result. Does the merging produce sufficient result? Discuss why. Now, estimate the camera pose and merge the results using every 2 nd , 4 th , and 10 th frames. Does the camera pose estimation change?
-
-
-
-
-So the estimated camera poses change in comparison with the previous estimates (Sec- tion 2.1)? Does this estimation produce better results?
+We showed in the previous figures that merging the  transformed point cloud with the base cloud every time clearly minimizes the RMS error. Although, the results without merging the cloud are still adequate, given that the computational time does not explode as in the merged version of the algorithm. Additionally, the frame step also affects the performance of the algorithm in both cases, with merging and without. As we expected a minimum error is found when we apply the ICP algorithm in every frame.
 
 Even though the ICP algorithm produces sufficient results for surface registration it still has major drawbacks when it comes to its computational cost which makes it really time demanding. The techniques presented earlier in this section improve its complexity without harming the performance. Another issue that arises when it comes to the performance of the algorithm is the fact that the surfaces to be merged need to be close to each other in terms of camera viewpoint, so the merging will converge to a quality solution.
 
-2. How do you think the ICP algorithm can be improved, beside the techniques mentioned in [2], in terms of efficiency and accuracy?
+Additional techniques with which ICP algorithm could be improved, are the following. 
 
+First, to add some constrains for the selected closest points we could say that the maximum distance of two selected point must be no larger than the distance of the center of the masses of the two point clouds. 
+
+Last, finding the two planes that are averaged through the point clouds. From this planes now we can only sample points in some interval distances from each plane and find the closest in the same distances in the other point cloud. Through this technique we make sure that points are only taken from similar relative distances from the two planes, fact that can lead in a good selection of points.
 
