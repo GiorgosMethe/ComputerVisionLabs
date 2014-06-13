@@ -3,7 +3,7 @@ close all;
 clc
 addpath('iso2mesh');
 
-data = readPcd('johan_sundin.pcd');
+data = readPcd('../../Data/johan_sundin.pcd');
 data = data(:,[1:3]);
 
 data = imfill(data);
