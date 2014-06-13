@@ -4,36 +4,35 @@ clc
 % Warnings off
 warning('off','all');
 % run vl_setup, for vl functions
-run('../../lib/vlfeat-0.9.18/toolbox/vl_setup.m')
+run('../../lib/vlfeat-0.9.18/toolbox/vl_setup.m');
 
 addpath('../egc/');
 addpath('../../data/TeddyBear/');
 addpath('../../data/House/');
 addpath('pvms');
 
-%[ pvm , pvmList ] = chaining('House',8, 1000, 1.0);
-%save('pvm8.mat','pvm')
-%save('pvmList8.mat','pvmList')
+[ pvm , pvmList ] = chaining('TeddyBear',1, 1000, 1.0);
+save('pvm.mat','pvm')
+save('pvmList.mat','pvmList')
 
-%load mat file for teddy bear
- load('pvmList1.mat');
- load('pvm1.mat');
+load('pvm.mat')
+load('pvmList.mat')
 
 pvmListImg = mat2gray(pvmList, [0 1]);
 pvmListImg = imresize(pvmListImg, [800 size(pvmList,2)]);
 
-% figure()
-% imshow(pvmListImg);
+figure()
+imshow(pvmListImg);
 
 %Construct matrix D for sfm
 D = constructD(pvmList, pvm);
 a = sum(pvmList,1);
-indexes = find(a > 46);
+indexes = find(a > 15);
 D = pvm(:,indexes);
 [M, S] = sfm(D);
 
 figure
-plot3(S(1,:),S(2,:),S(3,:),'b.', 'markersize', 20);
+plot3(S(1,:),S(2,:),S(3,:),'b.', 'markersize', 10);
 
 D = load('D.txt');
 [M, S] = sfm(D);
